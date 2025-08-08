@@ -17,7 +17,7 @@
       border-radius: 14px;
       padding: 24px 20px 18px 20px;
       border: 1.5px solid #eee;
-      box-shadow: 0 2px 18px rgba(173,42,36,0.06);
+      box-shadow: 0 2px 18px rgba(173, 42, 36, 0.06);
       box-sizing: border-box;
       transition: padding 0.3s ease;
     }
@@ -30,23 +30,68 @@
       text-align: center;
     }
     .top-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+  justify-content: center;
+  flex-wrap: wrap; /* Allow wrap on small screens */
+  font-size: 1em;
+}
+
+.top-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #771e17;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap; 
+}
+
+.top-row input[type="checkbox"] {
+  accent-color: #ad2a24;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .top-row {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+  .top-row label {
+    flex: 1 1 100%;
+    white-space: normal; 
+    margin-top: 8px;
+  }
+  #format {
+    min-width: 140px; 
+  }
+}
+
+    #format {
+      padding: 6px 7px;
       font-size: 1em;
+      border-radius: 6px;
+      border: 1.5px solid #ad2a24;
+      background: #fff3ed;
+      color: #751a14;
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      box-sizing: border-box;
+      transition: box-shadow 0.18s;
+      outline: none;
+      min-width: 100px;
+      margin: 0;
+      cursor: pointer;
     }
-    .top-row label,
-    .top-row select {
-      color: #771e17;
-    }
-    .top-row input[type="checkbox"] {
-      accent-color: #ad2a24;
-      width: 18px;
-      height: 18px;
-      vertical-align: middle;
+    #format:focus {
+      box-shadow: 0 0 6px #ad2a2440;
     }
     .straight-line {
       height: 3px;
@@ -89,6 +134,7 @@
       outline: none;
       width: 52px;
       box-sizing: border-box;
+      cursor: text;
     }
     input[type="number"]:focus,
     select:focus {
@@ -109,6 +155,7 @@
       transition: transform 0.13s, box-shadow 0.13s, background 0.17s;
       min-width: 90px;
       flex: 1 1 auto;
+      user-select: none;
     }
     button:last-child {
       margin-right: 0;
@@ -191,10 +238,10 @@
       display: block;
       animation: fadePop 0.3s;
     }
-    #calcBtn{
-        background: #5de330;
-        font-size: larger;
-    }
+#calcBtn{
+    background: #24da24;
+    font-size: larger;
+}
     /* Responsive Adjustments */
     @media (max-width: 480px) {
       .container {
@@ -205,8 +252,9 @@
         font-size: 1.7em;
       }
       .top-row {
-        gap: 8px;
-        font-size: 0.9em;
+        gap: 12px;
+        font-size: 0.95em;
+        justify-content: flex-start;
       }
       .row {
         flex-direction: column;
@@ -218,6 +266,7 @@
         width: 100%;
         font-size: 1.05em;
         padding: 8px 10px;
+        cursor: text;
       }
       .input-block {
         padding: 10px 12px;
@@ -242,7 +291,7 @@
   </style>
 </head>
 <body>
-  <div class="container" role="main">
+  <div class="container" role="main" aria-label="Time Between Hours Calculator">
     <h2>Time Between Hours Calculator</h2>
     <div class="top-row">
       <label for="format">Time Format:</label>
@@ -250,12 +299,12 @@
         <option value="24">24-hour</option>
         <option value="12">12-hour (AM/PM)</option>
       </select>
-      <label>
+      <label for="includeSeconds">
         <input type="checkbox" id="includeSeconds" aria-label="Include seconds in calculation" />
         Include Seconds
       </label>
     </div>
-    <div class="straight-line"></div>
+    <div class="straight-line" aria-hidden="true"></div>
     <section aria-label="Start Time Input">
       <h4>Start Time</h4>
       <div class="input-block">
