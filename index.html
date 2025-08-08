@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Time Between Hours Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fb;
+      margin: 0; padding: 0;
+    }
+    .container {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      background: #fff;
+    }
+    h2 { margin-top: 0; }
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    label { margin-right: 8px; }
+    input[type="number"] {
+      width: 52px;
+      padding: 4px;
+      font-size: 1em;
+    }
+    select { padding: 4px; }
+    button {
+      padding: 5px 15px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 4px;
+      background: #1976d2;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .output {
+      background: #f8f8fa;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 20px;
+      min-height: 70px;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+    .switch-btn {
+      background: #555;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Time Between Hours Calculator</h2>
+  <div class="row">
+    <label for="format">Time Format:</label>
+    <select id="format">
+      <option value="24">24-hour (default)</option>
+      <option value="12">12-hour (AM/PM)</option>
+    </select>
+    <label>
+      <input type="checkbox" id="includeSeconds"> Include Seconds
+    </label>
+  </div>
+  <hr>
+  <div>
+    <h4>Start Time</h4>
+    <div class="row" id="startTimeInputs"></div>
+  </div>
+  <div>
+    <h4>End Time</h4>
+    <div class="row" id="endTimeInputs"></div>
+  </div>
+  <div class="row">
+    <button type="button" class="switch-btn" id="swapBtn">Swap Start/End Times</button>
+    <button type="button" id="resetBtn">Reset</button>
+    <button type="button" id="calcBtn">Calculate</button>
+  </div>
+  <div id="error" class="error"></div>
+  <div id="output" class="output"></div>
+</div>
+
+<script>
+const startTimeInputs = document.getElementById("startTimeInputs");
+const endTimeInputs = document.getElementById("endTimeInputs");
+const formatSelect = document.getElementById("format");
+const includeSecondsCheckbox = document.getElementById("includeSeconds");
+const swapBtn = document.getElementById("swapBtn");
+const resetBtn = document.getElementById("resetBtn");
+const calcBtn = document.getElementById("calcBtn");
+const outputDiv = document.getElementById("output");
+const errorDiv = document.getElementById("error");
+
+function createTimeInputs(prefix, format, showSeconds, values={}) {
+  // `values` may have hour, minute, second, ampm
+  const hourInput = document.createElement("input");
+  hourInput.type = "number";
+  hourInput.min = format=="12" ? 1 : 0;
+  hourInput.max = format=="12" ? 12 : 23;
+  hourInput.value = values.hour!=null ? values.hour : (format=="12"?1:0);
+  hourInput.placeholder = format=="12" ? "Hour(1-12)" : "Hour(0-23)";
+  hourInput.id = prefix+"Hour";
+  hourInput.required = true;
+
+  const minuteInput = document.createElement("input");
+  minuteInput.type = "number";
+  minuteInput.min = 0; minuteInput.max = 59;
+  minuteInput.value = values.minute!=null ? values.minute : 0;
+  minuteInput.placeholder = "Minute";
+  minuteInput.id = prefix+"Minute";
+  minuteInput.required = true;
+
+  let secondInput = null;
+  if (showSeconds) {
+    secondInput = document.createElement("input");
+    secondInput.type = "number";
+    secondInput.min = 0; secondInput.max = 59;
+    secondInput.value = values.second!=null ? values.second : 0;
+    secondInput.placeholder = "Sec";
+    secondInput.id = prefix+"Second";
+  }
+
+  let ampmSelect = null;
+  if (format=="12") {
+    ampmSelect = document.createElement("select");
+    ampmSelect.id = prefix+"AMPM";
+    ["AM","PM"].forEach(val=>{
+      const opt = document.createElement("option");
+      opt.value = val; opt.textContent = val;
+      ampmSelect.appendChild(opt);
+    });
+    ampmSelect.value = values.ampm || "AM";
+  }
+
+  // Container
+  const inputs = [hourInput, document.createTextNode(":"), minuteInput];
+  if (showSeconds) {
+    inputs.push(document.createTextNode(":"));
+    inputs.push(secondInput);
+  }
+  if (format=="12") inputs.push(ampmSelect);
+
+  return { elements:inputs, hourInput, minuteInput, secondInput, ampmSelect };
+}
+
+function renderInputs() {
+  // store previous values to maintain if possible
+  const format = formatSelect.value;
+  const showSeconds = includeSecondsCheckbox.checked;
+
+  // gather current values if present
+  function getValues(prefix) {
+    return {
+      hour: Number(document.getElementById(prefix+"Hour")?.value ?? (format=="12"?1:0)),
+      minute: Number(document.getElementById(prefix+"Minute")?.value ?? 0),
+      second: document.getElementById(prefix+"Second") ? Number(document.getElementById(prefix+"Second").value) : null,
+      ampm: document.getElementById(prefix+"AMPM")?.value ?? "AM"
+    };
+  }
+
+  const startVals = getValues("start");
+  const endVals = getValues("end");
+
+  // Remove previous inputs
+  startTimeInputs.innerHTML = '';
+  endTimeInputs.innerHTML = '';
+
+  // Create new
+  const start = createTimeInputs("start", format, showSeconds, startVals);
+  const end = createTimeInputs("end", format, showSeconds, endVals);
+
+  start.elements.forEach(e=>startTimeInputs.appendChild(e));
+  end.elements.forEach(e=>endTimeInputs.appendChild(e));
+}
+
+function getTime(prefix) {
+  const format = formatSelect.value;
+  const hour = Number(document.getElementById(prefix+"Hour").value);
+  const minute = Number(document.getElementById(prefix+"Minute").value);
+  let second = includeSecondsCheckbox.checked ? Number(document.getElementById(prefix+"Second").value) : 0;
+  let ampm = format==="12" ? document.getElementById(prefix+"AMPM").value : null;
+  return { hour, minute, second, ampm };
+}
+
+function validateInputs(time, format) {
+  // Returns '' if ok, or error message
+  if (format=="12") {
+    if (!(time.hour>=1 && time.hour<=12)) return "Hour must be 1-12.";
+  } else {
+    if (!(time.hour>=0 && time.hour<=23)) return "Hour must be 0-23.";
+  }
+  if (!(time.minute>=0 && time.minute<=59)) return "Minute must be 0-59.";
+  if (includeSecondsCheckbox.checked && !(time.second>=0 && time.second<=59)) return "Second must be 0-59.";
+  return "";
+}
+function pad(n){return String(n).padStart(2,"0");}
+function formatDisplay(time, format) {
+  if (format=="12") {
+    return `${pad(((time.hour-1)%12)+1)}:${pad(time.minute)}${includeSecondsCheckbox.checked?`:${pad(time.second)}`:""} ${time.ampm}`
+  } else {
+    return `${pad(time.hour)}:${pad(time.minute)}${includeSecondsCheckbox.checked?`:${pad(time.second)}`:""}`
+  }
+}
+function to24Hour(hour, ampm) {
+  if (ampm=="AM") return hour==12?0:hour;
+  else return hour==12?12:hour+12;
+}
+function toSeconds(time, format) {
+  let h = format=="12"?to24Hour(time.hour, time.ampm):time.hour;
+  let m = time.minute;
+  let s = includeSecondsCheckbox.checked ? time.second : 0;
+  return h*3600 + m*60 + s;
+}
+
+function calculateResult() {
+  errorDiv.textContent = '';
+  outputDiv.textContent = '';
+
+  const format = formatSelect.value;
+  const start = getTime("start");
+  const end = getTime("end");
+
+  let errStart = validateInputs(start, format);
+  let errEnd = validateInputs(end, format);
+  if (errStart || errEnd) {
+    errorDiv.textContent = "Start time: " + errStart + " End time: " + errEnd;
+    return;
+  }
+
+  const s1 = toSeconds(start, format);
+  const s2 = toSeconds(end, format);
+  let diff = s2 - s1;
+  let abs = false;
+  if (diff<0) {abs=true;diff=-diff;}
+
+  let hours = Math.floor(diff/3600);
+  let mins = Math.floor((diff%3600)/60);
+  let secs = diff%60;
+
+  let resStr = `${abs?"Time difference (absolute):":"Result:"} ${hours} hour${hours!==1?"s":""}, ${mins} minute${mins!==1?"s":""}`;
+  if (includeSecondsCheckbox.checked)
+    resStr += `, ${secs} second${secs!==1?"s":""}`;
+
+  outputDiv.innerHTML = `<b>From:</b> ${formatDisplay(start, format)}<br>
+    <b>To:</b> ${formatDisplay(end, format)}<br>
+    <br>${resStr}`;
+}
+
+function reset() {
+  formatSelect.value = "24";
+  includeSecondsCheckbox.checked = false;
+  renderInputs();
+  errorDiv.textContent = "";
+  outputDiv.textContent = "";
+}
+function swapInputs() {
+  // Swap values
+  const format = formatSelect.value;
+  let s = getTime("start");
+  let e = getTime("end");
+
+  startTimeInputs.innerHTML = '';
+  endTimeInputs.innerHTML = '';
+
+  // Render with swapped values
+  let startElems = createTimeInputs("start", format, includeSecondsCheckbox.checked, e);
+  let endElems = createTimeInputs("end", format, includeSecondsCheckbox.checked, s);
+
+  startElems.elements.forEach(e=>startTimeInputs.appendChild(e));
+  endElems.elements.forEach(e=>endTimeInputs.appendChild(e));
+}
+
+// --- Initial Render and Wiring ---
+formatSelect.onchange = renderInputs;
+includeSecondsCheckbox.onchange = renderInputs;
+calcBtn.onclick = calculateResult;
+resetBtn.onclick = reset;
+swapBtn.onclick = swapInputs;
+
+renderInputs();
+
+</script>
+</body>
+</html>
