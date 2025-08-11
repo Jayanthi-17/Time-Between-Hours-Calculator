@@ -1,552 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Time Between Hours Calculator</title>
-  <style>
-    body {
-      background: #faf7f4;
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
-      margin: 0;
-    }
-    .container {
-      max-width: 420px;
-      margin: 48px auto;
-      background: #fff;
-      border-radius: 14px;
-      padding: 24px 20px 18px 20px;
-      border: 1.5px solid #eee;
-      box-shadow: 0 2px 18px rgba(173, 42, 36, 0.06);
-      box-sizing: border-box;
-      transition: padding 0.3s ease;
-    }
-    h2 {
-      margin: 0 0 6px 0;
-      font-size: 2em;
-      color: #ad2a24;
-      font-weight: bold;
-      letter-spacing: -1px;
-      text-align: center;
-    }
-    .top-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 14px;
-  justify-content: center;
-  flex-wrap: wrap; /* Allow wrap on small screens */
-  font-size: 1em;
-}
-
-.top-row label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #771e17;
-  font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-  white-space: nowrap; 
-}
-
-.top-row input[type="checkbox"] {
-  accent-color: #ad2a24;
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-  margin: 0;
-  cursor: pointer;
-}
-
-/* Responsive tweaks */
-@media (max-width: 480px) {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Between Hours Calculator</title>
+<style>
+  body {
+    background: #f8f4f2;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+    margin: 0;
+  }
+  .container {
+    max-width: 430px;
+    margin: 48px auto;
+    background: #fffdfb;
+    border-radius: 16px;
+    padding: 28px 24px 22px 24px;
+    border: 1.5px solid #ecdde0;
+    box-shadow: 0 3px 19px rgba(173,42,36,0.08);
+    box-sizing: border-box;
+  }
+  h2 {
+    margin: 0 0 10px 0;
+    font-size: 2em;
+    color: #ad2a24;
+    font-weight: bold;
+    letter-spacing: -1px;
+    text-align: center;
+  }
   .top-row {
-    justify-content: flex-start;
-    gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 1em;
   }
   .top-row label {
-    flex: 1 1 100%;
-    white-space: normal; 
-    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #ad2a24;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .top-row input[type="checkbox"] {
+    accent-color: #ad2a24;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
   }
   #format {
-    min-width: 140px; 
+    padding: 6px 7px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1.5px solid #ad2a24;
+    background: #fff7f4;
+    color: #ad2a24;
+    font-family: inherit;
+    box-sizing: border-box;
+    outline: none;
+    cursor: pointer;
+    min-width: 100px;
   }
+  #format:focus {
+    box-shadow: 0 0 6px #ad2a2422;
+  }
+  .straight-line {
+    height: 3px;
+    background: #ad2a24;
+    border-radius: 2px;
+    margin: 8px 0 12px 0;
+    border: none;
+  }
+  h4 {
+    margin-top: 20px;
+    margin-bottom: 7px;
+    font-size: 1.1em;
+    color: #ad2a24;
+    font-weight: 600;
+  }
+  .input-block {
+    background: #fff6f4;
+    border-radius: 8px;
+    padding: 10px 13px;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+  }
+  .row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  input[type="number"], select {
+    padding: 6px 7px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1.2px solid #ad2a24;
+    background: #fffaf7;
+    color: #ad2a24;
+    outline: none;
+    width: 60px;
+    box-sizing: border-box;
+  }
+  input[type="number"]:focus, select:focus {
+    box-shadow: 0 0 7px #ad2a2430;
+  }
+  button {
+    padding: 9px 19px;
+    border: none;
+    border-radius: 8px;
+    background: #ad2a24;
+    color: #fff9f5;
+    font-size: 1em;
+    font-family: inherit;
+    font-weight: bold;
+    min-width: 90px;
+    box-shadow: 0 2px 7px #ad2a2420;
+    cursor: pointer;
+    transition: background 0.17s, box-shadow 0.13s, transform 0.13s;
+  }
+  button:hover, button:focus {
+    background: #bc2e28;
+    transform: scale(1.06);
+    box-shadow: 0 7px 22px #ad2a2440;
+    outline: none;
+  }
+  button:disabled {
+    background: #ecdde0;
+    color: #ad9a94;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .result-block {
+    background: #f3c8c2;
+    border-radius: 10px;
+    margin-top: 32px;
+    padding: 13px 20px;
+    border: 1.1px solid #ad2a24;
+    color: #ad2a24;
+    font-size: 1.13em;
+    font-family: inherit;
+    display: none;
+    transition: opacity 0.27s;
+    word-break: break-word;
+    min-height: 36px;
+  }
+  .show-result {
+    display: block;
+    opacity: 1;
+    animation: fadePop 0.4s;
+  }
+  @keyframes fadePop {
+    0%   {opacity: 0; transform: scale(0.97);}
+    80%  {opacity: 1; transform: scale(1.04);}
+    100% {opacity: 1; transform: scale(1);}
+  }
+  .result-bold {
+    font-weight: bold;
+    font-size: 1.14em;
+    color: #ad2a24;
+    background: #fff3ed;
+    padding: 4px 8px;
+    border-radius: 7px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+  .error {
+    color: #ad2a24;
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 15px;
+    background: #ffe5e2;
+    padding: 7px 12px 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #ad2a24;
+    display: none;
+  }
+  .error.show {
+     display: block; animation: fadePop 0.3s;
+     }
+#calcBtn{
+  background: #23b616;
+  font-size: larger;
 }
 
-    #format {
-      padding: 6px 7px;
-      font-size: 1em;
-      border-radius: 6px;
-      border: 1.5px solid #ad2a24;
-      background: #fff3ed;
-      color: #751a14;
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
-      box-sizing: border-box;
-      transition: box-shadow 0.18s;
-      outline: none;
-      min-width: 100px;
-      margin: 0;
-      cursor: pointer;
-    }
-    #format:focus {
-      box-shadow: 0 0 6px #ad2a2440;
-    }
-    .straight-line {
-      height: 3px;
-      background: #ad2a24;
-      border: none;
-      border-radius: 2px;
-      margin: 8px 0 10px 0;
-    }
-    h4 {
-      margin-top: 20px;
-      margin-bottom: 7px;
-      font-size: 1.11em;
-      color: #ad2a24;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-    .row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-    .input-block {
-      background: #fff7f4;
-      border-radius: 7px;
-      padding: 8px 10px;
-      margin-bottom: 2px;
-      box-sizing: border-box;
-    }
-    input[type="number"],
-    select {
-      padding: 5px 6px;
-      font-size: 1em;
-      border-radius: 4px;
-      border: 1.2px solid #ad2a24;
-      background: #fffaf7;
-      color: #751a14;
-      transition: box-shadow 0.18s;
-      outline: none;
-      width: 52px;
-      box-sizing: border-box;
-      cursor: text;
-    }
-    input[type="number"]:focus,
-    select:focus {
-      box-shadow: 0 0 6px #ad2a2440;
-    }
-    button {
-      padding: 8px 18px;
-      border: none;
-      border-radius: 8px;
-      background: #ad2a24;
-      color: #fff9f5;
-      font-size: 1em;
-      font-family: inherit;
-      font-weight: bold;
-      box-shadow: 0 1px 5px #ad2a2420;
-      margin-right: 7px;
-      cursor: pointer;
-      transition: transform 0.13s, box-shadow 0.13s, background 0.17s;
-      min-width: 90px;
-      flex: 1 1 auto;
-      user-select: none;
-    }
-    button:last-child {
-      margin-right: 0;
-    }
-    button:hover,
-    button:focus {
-      transform: scale(1.08);
-      box-shadow: 0 5px 14px #ad2a2440;
-      background: #bc2e28;
-      outline: none;
-    }
-    button:active {
-      transform: scale(0.96);
-      background: #ad2a24;
-    }
-    button:disabled {
-      background: #ecdde0;
-      color: #ad9a94;
-      box-shadow: none;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .result-block {
-      background: #f3c8c2;
-      border-radius: 10px;
-      margin-top: 34px;
-      padding: 13px 20px;
-      border: 1.1px solid #ad2a24;
-      color: #ad2a24;
-      font-size: 1.12em;
-      font-family: inherit;
-      font-weight: normal;
-      display: none;
-      transition: opacity 0.27s;
-      word-break: break-word;
-      min-height: 36px;
-    }
-    .show-result {
-      display: block;
-      opacity: 1;
-      animation: fadePop 0.4s;
-    }
-    @keyframes fadePop {
-      0% {
-        opacity: 0;
-        transform: scale(0.97);
-      }
-      80% {
-        opacity: 1;
-        transform: scale(1.04);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    .result-bold {
-      font-weight: bold;
-      font-size: 1.14em;
-      color: #ad2a24;
-      letter-spacing: 1px;
-      background: #fff3ed;
-      padding: 4px 8px;
-      border-radius: 7px;
-      display: inline-block;
-      margin-top: 6px;
-    }
-    .error {
-      color: #ad2a24;
-      font-weight: bold;
-      font-size: 1em;
-      margin-top: 15px;
-      background: #ffe5e2;
-      padding: 7px 12px 6px 12px;
-      border-radius: 8px;
-      border: 1px solid #ad2a24;
-      display: none;
-    }
-    .error.show {
-      display: block;
-      animation: fadePop 0.3s;
-    }
-#calcBtn{
-    background: #24da24;
-    font-size: larger;
-}
-    /* Responsive Adjustments */
-    @media (max-width: 480px) {
-      .container {
-        margin: 20px 12px;
-        padding: 20px 14px 18px 14px;
-      }
-      h2 {
-        font-size: 1.7em;
-      }
-      .top-row {
-        gap: 12px;
-        font-size: 0.95em;
-        justify-content: flex-start;
-      }
-      .row {
-        flex-direction: column;
-        align-items: stretch;
-        margin-bottom: 12px;
-      }
-      input[type="number"],
-      select {
-        width: 100%;
-        font-size: 1.05em;
-        padding: 8px 10px;
-        cursor: text;
-      }
-      .input-block {
-        padding: 10px 12px;
-      }
-      button {
-        min-width: auto;
-        width: 100%;
-        margin: 8px 0 0 0 !important;
-        box-sizing: border-box;
-        flex: none;
-      }
-      .row:nth-last-child(1) {
-        flex-wrap: wrap;
-      }
-      .result-block {
-        font-size: 1.1em;
-      }
-      h4 {
-        font-size: 1.03em;
-      }
-    }
-  </style>
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container { margin: 20px 12px; padding: 20px 14px 18px 14px; }
+    h2 { font-size: 1.7em; }
+    .top-row { justify-content: flex-start; gap: 12px; font-size: 0.95em; }
+    .row { flex-direction: column; align-items: stretch; margin-bottom: 12px; }
+    input[type="number"], select { width: 100%; font-size: 1.05em; padding: 8px 10px; }
+    .input-block { padding: 10px 12px; }
+    button { width: 100%; margin-top: 8px;}
+    .result-block { font-size: 1.1em; }
+  }
+</style>
 </head>
 <body>
-  <div class="container" role="main" aria-label="Time Between Hours Calculator">
-    <h2>Time Between Hours Calculator</h2>
-    <div class="top-row">
-      <label for="format">Time Format:</label>
-      <select id="format" aria-label="Select time format">
-        <option value="24">24-hour</option>
-        <option value="12">12-hour (AM/PM)</option>
-      </select>
-      <label for="includeSeconds">
-        <input type="checkbox" id="includeSeconds" aria-label="Include seconds in calculation" />
-        Include Seconds
-      </label>
-    </div>
-    <div class="straight-line" aria-hidden="true"></div>
-    <section aria-label="Start Time Input">
-      <h4>Start Time</h4>
-      <div class="input-block">
-        <div class="row" id="startTimeInputs"></div>
-      </div>
-    </section>
-    <section aria-label="End Time Input">
-      <h4>End Time</h4>
-      <div class="input-block">
-        <div class="row" id="endTimeInputs"></div>
-      </div>
-    </section>
-    <div class="row" role="group" aria-label="Action buttons">
-      <button type="button" id="swapBtn" title="Swap Start and End Times">Swap</button>
-      <button type="button" id="resetBtn" title="Reset form inputs">Reset</button>
-      <button type="button" id="calcBtn" title="Calculate time difference">Calculate</button>
-    </div>
-    <div id="error" class="error" role="alert"></div>
-    <div id="output" class="result-block" aria-live="polite"></div>
+<div class="container" role="main">
+  <h2>Time Between Hours Calculator</h2>
+  <div class="top-row">
+    <label for="format">Time Format:</label>
+    <select id="format">
+      <option value="24">24-hour</option>
+      <option value="12" selected>12-hour (AM/PM)</option>
+    </select>
+    <label><input type="checkbox" id="includeSeconds"> Include Seconds</label>
   </div>
+  <div class="straight-line"></div>
+  <section>
+    <h4>Start Time</h4>
+    <div class="input-block"><div class="row" id="startTimeInputs"></div></div>
+  </section>
+  <section>
+    <h4>End Time</h4>
+    <div class="input-block"><div class="row" id="endTimeInputs"></div></div>
+  </section>
+  <div class="row">
+    <button id="swapBtn">Swap</button>
+    <button id="resetBtn">Reset</button>
+    <button id="calcBtn">Calculate</button>
+  </div>
+  <div id="error" class="error"></div>
+  <div id="output" class="result-block"></div>
+</div>
+<script>
+  const startTimeInputs = document.getElementById("startTimeInputs");
+  const endTimeInputs = document.getElementById("endTimeInputs");
+  const formatSelect = document.getElementById("format");
+  const includeSecondsCheckbox = document.getElementById("includeSeconds");
+  const swapBtn = document.getElementById("swapBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const calcBtn = document.getElementById("calcBtn");
+  const outputDiv = document.getElementById("output");
+  const errorDiv = document.getElementById("error");
 
-  <script>
-    const startTimeInputs = document.getElementById("startTimeInputs");
-    const endTimeInputs = document.getElementById("endTimeInputs");
-    const formatSelect = document.getElementById("format");
-    const includeSecondsCheckbox = document.getElementById("includeSeconds");
-    const swapBtn = document.getElementById("swapBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const calcBtn = document.getElementById("calcBtn");
-    const outputDiv = document.getElementById("output");
-    const errorDiv = document.getElementById("error");
-
-    function createTimeInputs(prefix, format, showSeconds, values = {}) {
-      const hourInput = document.createElement("input");
-      hourInput.type = "number";
-      hourInput.min = format == "12" ? 1 : 0;
-      hourInput.max = format == "12" ? 12 : 23;
-      hourInput.value = values.hour != null ? values.hour : format == "12" ? 1 : 0;
-      hourInput.placeholder = "Hour";
-      hourInput.id = prefix + "Hour";
-      hourInput.required = true;
-      hourInput.setAttribute("aria-label", prefix + " hour input");
-
-      const minuteInput = document.createElement("input");
-      minuteInput.type = "number";
-      minuteInput.min = 0;
-      minuteInput.max = 59;
-      minuteInput.value = values.minute != null ? values.minute : 0;
-      minuteInput.placeholder = "Min";
-      minuteInput.id = prefix + "Minute";
-      minuteInput.required = true;
-      minuteInput.setAttribute("aria-label", prefix + " minute input");
-
-      let secondInput = null;
-      if (showSeconds) {
-        secondInput = document.createElement("input");
-        secondInput.type = "number";
-        secondInput.min = 0;
-        secondInput.max = 59;
-        secondInput.value = values.second != null ? values.second : 0;
-        secondInput.placeholder = "Sec";
-        secondInput.id = prefix + "Second";
-        secondInput.setAttribute("aria-label", prefix + " second input");
-      }
-
-      let ampmSelect = null;
-      if (format == "12") {
-        ampmSelect = document.createElement("select");
-        ampmSelect.id = prefix + "AMPM";
-        ampmSelect.setAttribute("aria-label", prefix + " AM/PM selector");
-        ["AM", "PM"].forEach(val => {
-          const opt = document.createElement("option");
-          opt.value = val;
-          opt.textContent = val;
-          ampmSelect.appendChild(opt);
-        });
-        ampmSelect.value = values.ampm || "AM";
-      }
-
-      const inputs = [hourInput, document.createTextNode(":"), minuteInput];
-      if (showSeconds) {
-        inputs.push(document.createTextNode(":"));
-        inputs.push(secondInput);
-      }
-      if (format == "12") inputs.push(ampmSelect);
-
-      return { elements: inputs, hourInput, minuteInput, secondInput, ampmSelect };
+  function createTimeInputs(prefix, format, showSeconds, values = {}) {
+    const hourInput = document.createElement("input");
+    hourInput.type = "number";
+    hourInput.min = format == "12" ? 1 : 0;
+    hourInput.max = format == "12" ? 12 : 23;
+    hourInput.value = values.hour ?? (format == "12" ? 1 : 0);
+    hourInput.placeholder = "Hour";
+    hourInput.id = prefix + "Hour";
+    const minuteInput = document.createElement("input");
+    minuteInput.type = "number";
+    minuteInput.min = 0; minuteInput.max = 59;
+    minuteInput.value = values.minute ?? 0;
+    minuteInput.placeholder = "Min";
+    minuteInput.id = prefix + "Minute";
+    let secondInput = null;
+    if (showSeconds) {
+      secondInput = document.createElement("input");
+      secondInput.type = "number";
+      secondInput.min = 0; secondInput.max = 59;
+      secondInput.value = values.second ?? 0;
+      secondInput.placeholder = "Sec";
+      secondInput.id = prefix + "Second";
     }
-
-    function renderInputs() {
-      const format = formatSelect.value;
-      const showSeconds = includeSecondsCheckbox.checked;
-
-      function getValues(prefix) {
-        return {
-          hour: Number(document.getElementById(prefix + "Hour")?.value ?? (format == "12" ? 1 : 0)),
-          minute: Number(document.getElementById(prefix + "Minute")?.value ?? 0),
-          second: document.getElementById(prefix + "Second") ? Number(document.getElementById(prefix + "Second").value) : null,
-          ampm: document.getElementById(prefix + "AMPM")?.value ?? "AM"
-        };
-      }
-      const startVals = getValues("start");
-      const endVals = getValues("end");
-
-      startTimeInputs.innerHTML = "";
-      endTimeInputs.innerHTML = "";
-
-      const start = createTimeInputs("start", format, showSeconds, startVals);
-      const end = createTimeInputs("end", format, showSeconds, endVals);
-
-      start.elements.forEach(e => startTimeInputs.appendChild(e));
-      end.elements.forEach(e => endTimeInputs.appendChild(e));
-
-      outputDiv.classList.remove("show-result");
-      errorDiv.classList.remove("show");
-      outputDiv.innerHTML = "";
-      errorDiv.innerHTML = "";
+    let ampmSelect = null;
+    if (format == "12") {
+      ampmSelect = document.createElement("select");
+      ampmSelect.id = prefix + "AMPM";
+      ["AM","PM"].forEach(val => {
+        const opt = document.createElement("option");
+        opt.value = val; opt.textContent = val;
+        ampmSelect.appendChild(opt);
+      });
+      ampmSelect.value = values.ampm || "AM";
     }
+    const elements = [hourInput, document.createTextNode(":"), minuteInput];
+    if (showSeconds) {elements.push(document.createTextNode(":")); elements.push(secondInput);}
+    if (format == "12") elements.push(ampmSelect);
+    return {elements, hourInput, minuteInput, secondInput, ampmSelect};
+  }
 
-    function getTime(prefix) {
-      const format = formatSelect.value;
-      const hour = Number(document.getElementById(prefix + "Hour").value);
-      const minute = Number(document.getElementById(prefix + "Minute").value);
-      let second = includeSecondsCheckbox.checked ? Number(document.getElementById(prefix + "Second").value) : 0;
-      let ampm = format === "12" ? document.getElementById(prefix + "AMPM").value : null;
-      return { hour, minute, second, ampm };
+  function renderInputs() {
+    const format = formatSelect.value;
+    const showSeconds = includeSecondsCheckbox.checked;
+    function getValues(prefix) {
+      return {
+        hour: Number(document.getElementById(prefix + "Hour")?.value ?? (format == "12" ? 1 : 0)),
+        minute: Number(document.getElementById(prefix + "Minute")?.value ?? 0),
+        second: document.getElementById(prefix + "Second") ? Number(document.getElementById(prefix + "Second").value) : null,
+        ampm: document.getElementById(prefix + "AMPM")?.value ?? "AM"
+      };
     }
+    const startVals = getValues("start");
+    const endVals = getValues("end");
+    startTimeInputs.innerHTML = "";
+    endTimeInputs.innerHTML = "";
+    const start = createTimeInputs("start", format, showSeconds, startVals);
+    const end = createTimeInputs("end", format, showSeconds, endVals);
+    start.elements.forEach(e => startTimeInputs.appendChild(e));
+    end.elements.forEach(e => endTimeInputs.appendChild(e));
+    outputDiv.classList.remove("show-result");
+    errorDiv.classList.remove("show");
+    outputDiv.innerHTML = "";
+    errorDiv.innerHTML = "";
+  }
 
-    function validateInputs(time, format) {
-      if (format == "12") {
-        if (!(time.hour >= 1 && time.hour <= 12)) return "Hour must be 1-12.";
-      } else {
-        if (!(time.hour >= 0 && time.hour <= 23)) return "Hour must be 0-23.";
-      }
-      if (!(time.minute >= 0 && time.minute <= 59)) return "Minute must be 0-59.";
-      if (includeSecondsCheckbox.checked && !(time.second >= 0 && time.second <= 59)) return "Second must be 0-59.";
-      return "";
+  function getTime(prefix) {
+    const format = formatSelect.value;
+    const hour = Number(document.getElementById(prefix + "Hour").value);
+    const minute = Number(document.getElementById(prefix + "Minute").value);
+    let second = includeSecondsCheckbox.checked ? Number(document.getElementById(prefix + "Second").value) : 0;
+    let ampm = format === "12" ? document.getElementById(prefix + "AMPM").value : null;
+    return {hour, minute, second, ampm};
+  }
+
+  function validateInputs(time, format) {
+    if (format == "12") { if (!(time.hour >= 1 && time.hour <= 12)) return "Hour must be 1-12."; }
+    else { if (!(time.hour >= 0 && time.hour <= 23)) return "Hour must be 0-23."; }
+    if (!(time.minute >= 0 && time.minute <= 59)) return "Minute must be 0-59.";
+    if (includeSecondsCheckbox.checked && !(time.second >= 0 && time.second <= 59)) return "Second must be 0-59.";
+    return "";
+  }
+
+  function pad(n){return String(n).padStart(2, "0");}
+  function formatDisplay(time, format) {
+    if (format == "12") {
+      return pad(((time.hour - 1) % 12) + 1) + ":" + pad(time.minute) +
+        (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "") + " " + time.ampm;
+    } else {
+      return pad(time.hour) + ":" + pad(time.minute) + (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "");
     }
-    function pad(n) {
-      return String(n).padStart(2, "0");
+  }
+  function to24Hour(hour, ampm) {
+    if (ampm == "AM") return hour == 12 ? 0 : hour;
+    else return hour == 12 ? 12 : hour + 12;
+  }
+  function toSeconds(time, format) {
+    let h = format == "12" ? to24Hour(time.hour, time.ampm) : time.hour;
+    let m = time.minute; let s = includeSecondsCheckbox.checked ? time.second : 0;
+    return h * 3600 + m * 60 + s;
+  }
+
+  function calculateResult() {
+    errorDiv.innerHTML = "";
+    errorDiv.classList.remove("show");
+    outputDiv.innerHTML = "";
+    outputDiv.classList.remove("show-result");
+    const format = formatSelect.value;
+    const start = getTime("start");
+    const end = getTime("end");
+    let errStart = validateInputs(start, format);
+    let errEnd = validateInputs(end, format);
+    if (errStart || errEnd) {
+      errorDiv.innerHTML = (errStart ? "Start time: " + errStart : "") + (errEnd ? "<br>End time: " + errEnd : "");
+      errorDiv.classList.add("show");
+      return;
     }
-    function formatDisplay(time, format) {
-      if (format == "12") {
-        return (
-          pad(((time.hour - 1) % 12) + 1) +
-          ":" +
-          pad(time.minute) +
-          (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "") +
-          " " +
-          time.ampm
-        );
-      } else {
-        return pad(time.hour) + ":" + pad(time.minute) + (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "");
-      }
-    }
-    function to24Hour(hour, ampm) {
-      if (ampm == "AM") return hour == 12 ? 0 : hour;
-      else return hour == 12 ? 12 : hour + 12;
-    }
-    function toSeconds(time, format) {
-      let h = format == "12" ? to24Hour(time.hour, time.ampm) : time.hour;
-      let m = time.minute;
-      let s = includeSecondsCheckbox.checked ? time.second : 0;
-      return h * 3600 + m * 60 + s;
-    }
+    const s1 = toSeconds(start, format);
+    const s2 = toSeconds(end, format);
+    let diff = s2 - s1;
+    let abs = false;
+    if (diff < 0) {abs = true; diff = -diff;}
+    let hours = Math.floor(diff / 3600);
+    let mins = Math.floor((diff % 3600) / 60);
+    let secs = diff % 60;
+    let resultBold = `<span class="result-bold">${hours} hour${hours !== 1 ? "s" : ""}, ${mins} minute${mins !== 1 ? "s" : ""}`;
+    if (includeSecondsCheckbox.checked) resultBold += `, ${secs} second${secs !== 1 ? "s" : ""}`;
+    resultBold += `</span>`;
+    let heading = abs ? `Time difference (absolute):` : `Result:`;
+    outputDiv.innerHTML = `<b>From:</b> ${formatDisplay(start, format)}<br>
+      <b>To:</b> ${formatDisplay(end, format)}<br>
+      <div style="margin-top:8px"><span style="font-weight:bold;color:#ad2a24">${heading}</span><br>${resultBold}</div>`;
+    outputDiv.classList.add("show-result");
+  }
 
-    function calculateResult() {
-      errorDiv.innerHTML = "";
-      errorDiv.classList.remove("show");
-      outputDiv.innerHTML = "";
-      outputDiv.classList.remove("show-result");
-
-      const format = formatSelect.value;
-      const start = getTime("start");
-      const end = getTime("end");
-
-      let errStart = validateInputs(start, format);
-      let errEnd = validateInputs(end, format);
-      if (errStart || errEnd) {
-        errorDiv.innerHTML =
-          (errStart ? "Start time: " + errStart : "") + (errEnd ? "<br>End time: " + errEnd : "");
-        errorDiv.classList.add("show");
-        return;
-      }
-
-      const s1 = toSeconds(start, format);
-      const s2 = toSeconds(end, format);
-      let diff = s2 - s1;
-      let abs = false;
-      if (diff < 0) {
-        abs = true;
-        diff = -diff;
-      }
-
-      let hours = Math.floor(diff / 3600);
-      let mins = Math.floor((diff % 3600) / 60);
-      let secs = diff % 60;
-
-      let resultBold = `<span class="result-bold">${hours} hour${hours !== 1 ? "s" : ""}, ${mins} minute${mins !== 1 ? "s" : ""}`;
-      if (includeSecondsCheckbox.checked) resultBold += `, ${secs} second${secs !== 1 ? "s" : ""}`;
-      resultBold += `</span>`;
-
-      let heading = abs ? `Time difference (absolute):` : `Result:`;
-
-      outputDiv.innerHTML = `<b>From:</b> ${formatDisplay(start, format)}<br>
-        <b>To:</b> ${formatDisplay(end, format)}<br>
-        <div style="margin-top:8px"><span style="font-weight:bold;color:#ad2a24">${heading}</span><br>${resultBold}</div>`;
-      outputDiv.classList.add("show-result");
-    }
-
-    function reset() {
-      formatSelect.value = "24";
-      includeSecondsCheckbox.checked = false;
-      renderInputs();
-      errorDiv.innerHTML = "";
-      outputDiv.innerHTML = "";
-      errorDiv.classList.remove("show");
-      outputDiv.classList.remove("show-result");
-    }
-    function swapInputs() {
-      const format = formatSelect.value;
-      let s = getTime("start");
-      let e = getTime("end");
-      startTimeInputs.innerHTML = "";
-      endTimeInputs.innerHTML = "";
-      let startElems = createTimeInputs("start", format, includeSecondsCheckbox.checked, e);
-      let endElems = createTimeInputs("end", format, includeSecondsCheckbox.checked, s);
-      startElems.elements.forEach(e => startTimeInputs.appendChild(e));
-      endElems.elements.forEach(e => endTimeInputs.appendChild(e));
-      outputDiv.innerHTML = "";
-      outputDiv.classList.remove("show-result");
-      errorDiv.innerHTML = "";
-      errorDiv.classList.remove("show");
-    }
-
-    formatSelect.onchange = renderInputs;
-    includeSecondsCheckbox.onchange = renderInputs;
-    calcBtn.onclick = calculateResult;
-    resetBtn.onclick = reset;
-    swapBtn.onclick = swapInputs;
-
+  function reset() {
+    formatSelect.value = "12";
+    includeSecondsCheckbox.checked = false;
     renderInputs();
-  </script>
+    errorDiv.innerHTML = "";
+    outputDiv.innerHTML = "";
+    errorDiv.classList.remove("show");
+    outputDiv.classList.remove("show-result");
+  }
+
+  function swapInputs() {
+    const format = formatSelect.value;
+    let s = getTime("start");
+    let e = getTime("end");
+    startTimeInputs.innerHTML = "";
+    endTimeInputs.innerHTML = "";
+    let startElems = createTimeInputs("start", format, includeSecondsCheckbox.checked, e);
+    let endElems = createTimeInputs("end", format, includeSecondsCheckbox.checked, s);
+    startElems.elements.forEach(el => startTimeInputs.appendChild(el));
+    endElems.elements.forEach(el => endTimeInputs.appendChild(el));
+    outputDiv.innerHTML = "";
+    outputDiv.classList.remove("show-result");
+    errorDiv.innerHTML = "";
+    errorDiv.classList.remove("show");
+  }
+
+  formatSelect.onchange = renderInputs;
+  includeSecondsCheckbox.onchange = renderInputs;
+  calcBtn.onclick = calculateResult;
+  resetBtn.onclick = reset;
+  swapBtn.onclick = swapInputs;
+  renderInputs();
+</script>
 </body>
 </html>
