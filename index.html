@@ -1,400 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Time Between Hours Calculator</title>
-<style>
-  body {
-    background:  #fff;
-    font-family: 'Georgia', serif;
-    margin: 0;
-  }
-  .container {
-    max-width: 430px;
-    margin: 40px auto;
-    background: #f9f5e8;;
-    border-radius: 5px;
-    padding: 26px 24px;
-    border: 1px solid #d4c9a8;
-    box-shadow: 0 2px 12px rgba(173,42,36,0.08);
-  }
-  h2 {
-    margin: 0 0 12px;
-    font-size: 2em;
-    color: #ad2a24;
-    font-weight: bold;
-    text-align: center;
-  }
-  .top-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .top-row label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #ad2a24;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .top-row input[type="checkbox"] {
-    accent-color: #ad2a24;
-    width: 18px;
-    height: 18px;
-  }
-  #format {
-    padding: 6px 7px;
-    font-size: 1em;
-    border-radius: 6px;
-    border: 1.5px solid #ad2a24;
-    background: #fff7f4;
-    color: #ad2a24;
-    min-width: 100px;
-    cursor: pointer;
-  }
-  #format:focus {
-    box-shadow: 0 0 6px #ad2a2422;
-  }
-  .straight-line {
-    height: 3px;
-    background: #d4c9a8;
-    border-radius: 2px;
-    margin: 8px 0 12px;
-  }
-  h4 {
-    margin: 20px 0 7px;
-    font-size: 1.1em;
-    color: #ad2a24;
-    font-weight: 600;
-  }
-  .input-block {
-    background: #fff6f4;
-    border-radius: 8px;
-    padding: 10px 13px;
-  }
-  .row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  input[type="number"], select {
-    padding: 6px 7px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1.2px solid #ad2a24;
-    background: #fffaf7;
-    color: #ad2a24;
-    width: 60px;
-  }
-  input[type="number"]:focus, select:focus {
-    box-shadow: 0 0 7px #ad2a2430;
-  }
-  button {
-    padding: 9px 19px;
-    border: none;
-    border-radius: 8px;
-    background: #ad2a24;
-    color: #fff9f5;
-    font-size: 1em;
-    font-weight: bold;
-    min-width: 90px;
-    box-shadow: 0 2px 6px #ad2a241a;
-    cursor: pointer;
-    transition: background 0.17s, transform 0.13s;
-  }
-  button:hover, button:focus {
-    background: #bc2e28;
-    transform: scale(1.05);
-  }
-  #calcBtn {
-    background: #23b616;
-    font-size: 1.05em;
-  }
-  #calcBtn:hover {
-    background: #1f9e14;
-  }
-  .result-block {
-    background: #fff;
-    border-radius: 5px;
-    margin-top: 26px;
-    padding: 15px 18px;
-    border:  1px solid #d4c9a8;
-    color: #ad2a24;
-    font-size: 1.15em;
-    display: none;
-    box-shadow: 0 2px 8px #ad2a2430;
-  }
-  .show-result {
-    display: block;
-    animation: fadePop 0.4s;
-  }
-  @keyframes fadePop {
-    0% {opacity: 0; transform: scale(0.97);}
-    80% {opacity: 1; transform: scale(1.03);}
-    100% {opacity: 1;}
-  }
-  .result-bold {
-    font-weight: bold;
-    font-size: 1.05em;
-    background: #f9f5e8;
-    padding: 4px 8px;
-    border-radius: 7px;
-    display: inline-block;
-    margin-top: 6px;
-  }
-  .error {
-    color: #ad2a24;
-    font-weight: bold;
-    font-size: 0.95em;
-    margin-top: 15px;
-    background: #ffe5e2;
-    padding: 7px 12px;
-    border-radius: 8px;
-    border: 1px solid #ad2a24;
-    display: none;
-  }
-  .error.show {
-    display: block;
-    animation: fadePop 0.3s;
-  }
-  @media (max-width: 480px) {
-    .container {margin: 20px 12px; padding: 20px 14px;}
-    h2 {font-size: 1.7em;}
-    .row {flex-direction: column; align-items: stretch;}
-    input[type="number"], select {width: 100%;}
-    button {width: 100%; margin-top: 8px;}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Between Hours Calculator</title>
 </head>
 <body>
-<div class="container">
-  <h2>Time Between Hours Calculator</h2>
-  <div class="top-row">
-    <label>Time Format:
-      <select id="format">
-        <option value="24">24-hour</option>
-        <option value="12" selected>12-hour (AM/PM)</option>
-      </select>
-    </label>
-    <label><input type="checkbox" id="includeSeconds"> Include Seconds</label>
-  </div>
-  <div class="straight-line"></div>
-  <section>
-    <h4>Start Time</h4>
-    <div class="input-block"><div class="row" id="startTimeInputs"></div></div>
-  </section>
-  <section>
-    <h4>End Time</h4>
-    <div class="input-block"><div class="row" id="endTimeInputs"></div></div>
-  </section>
-  <div class="row">
-    <button id="swapBtn">Swap</button>
-    <button id="resetBtn">Reset</button>
-    <button id="calcBtn">Calculate</button>
-  </div>
-  <div id="error" class="error"></div>
-  <div id="output" class="result-block"></div>
-</div>
+    <div id="TimeCalculatorContainer"></div>
 
-<script>
-  const startTimeInputs = document.getElementById("startTimeInputs");
-  const endTimeInputs = document.getElementById("endTimeInputs");
-  const formatSelect = document.getElementById("format");
-  const includeSecondsCheckbox = document.getElementById("includeSeconds");
-  const swapBtn = document.getElementById("swapBtn");
-  const resetBtn = document.getElementById("resetBtn");
-  const calcBtn = document.getElementById("calcBtn");
-  const outputDiv = document.getElementById("output");
-  const errorDiv = document.getElementById("error");
+    <script>
+        document.getElementById('TimeCalculatorContainer').innerHTML = `
+        <div class="time-calculator-container">
+            <h2>Time Between Hours Calculator</h2>
+            <div class="time-calculator-top-row">
+                <label>Time Format:
+                    <select id="timeCalculatorFormat">
+                        <option value="24">24-hour</option>
+                        <option value="12" selected>12-hour (AM/PM)</option>
+                    </select>
+                </label>
+                <label><input type="checkbox" id="timeCalculatorIncludeSeconds"> Include Seconds</label>
+            </div>
+            <div class="time-calculator-straight-line"></div>
+            <section>
+                <h4>Start Time</h4>
+                <div class="time-calculator-input-block"><div class="time-calculator-row" id="timeCalculatorStartInputs"></div></div>
+            </section>
+            <section>
+                <h4>End Time</h4>
+                <div class="time-calculator-input-block"><div class="time-calculator-row" id="timeCalculatorEndInputs"></div></div>
+            </section>
+            <div class="time-calculator-row">
+                <button id="timeCalculatorSwapBtn">Swap</button>
+                <button id="timeCalculatorResetBtn">Reset</button>
+                <button id="timeCalculatorCalcBtn">Calculate</button>
+            </div>
+            <div id="timeCalculatorError" class="time-calculator-error"></div>
+            <div id="timeCalculatorOutput" class="time-calculator-result-block"></div>
+        </div>
+        `;
 
-  function createTimeInputs(prefix, format, showSeconds, values = {}) {
-    const hourInput = document.createElement("input");
-    hourInput.type = "number";
-    hourInput.min = format == "12" ? 1 : 0;
-    hourInput.max = format == "12" ? 12 : 23;
-    hourInput.value = values.hour ?? (format == "12" ? 1 : 0);
-    hourInput.placeholder = "Hour";
-    hourInput.id = prefix + "Hour";
+        // Add CSS
+        const style = document.createElement('style');
+        style.textContent = `
+        .time-calculator-container {
+            max-width: 430px;
+            margin: 40px auto;
+            background: #f9f5e8;
+            border-radius: 5px;
+            padding: 26px 24px;
+            border: 1px solid #d4c9a8;
+            box-shadow: 0 2px 12px rgba(173,42,36,0.08);
+            font-family: 'Georgia', serif;
+        }
 
-    const minuteInput = document.createElement("input");
-    minuteInput.type = "number";
-    minuteInput.min = 0; minuteInput.max = 59;
-    minuteInput.value = values.minute ?? 0;
-    minuteInput.placeholder = "Min";
-    minuteInput.id = prefix + "Minute";
+        .time-calculator-container h2 {
+            margin: 0 0 12px;
+            font-size: 2em;
+            color: #ad2a24;
+            font-weight: bold;
+            text-align: center;
+        }
 
-    let secondInput = null;
-    if (showSeconds) {
-      secondInput = document.createElement("input");
-      secondInput.type = "number";
-      secondInput.min = 0; secondInput.max = 59;
-      secondInput.value = values.second ?? 0;
-      secondInput.placeholder = "Sec";
-      secondInput.id = prefix + "Second";
-    }
+        .time-calculator-top-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-    let ampmSelect = null;
-    if (format == "12") {
-      ampmSelect = document.createElement("select");
-      ampmSelect.id = prefix + "AMPM";
-      ["AM","PM"].forEach(val => {
-        const opt = document.createElement("option");
-        opt.value = val; opt.textContent = val;
-        ampmSelect.appendChild(opt);
-      });
-      ampmSelect.value = values.ampm || "AM";
-    }
+        .time-calculator-top-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #ad2a24;
+            font-weight: 500;
+            white-space: nowrap;
+        }
 
-    const elements = [hourInput, document.createTextNode(":"), minuteInput];
-    if (showSeconds) {elements.push(document.createTextNode(":")); elements.push(secondInput);}
-    if (format == "12") elements.push(ampmSelect);
-    return {elements};
-  }
+        .time-calculator-top-row input[type="checkbox"] {
+            accent-color: #ad2a24;
+            width: 18px;
+            height: 18px;
+        }
 
-  function renderInputs() {
-    const format = formatSelect.value;
-    const showSeconds = includeSecondsCheckbox.checked;
-    function getValues(prefix) {
-      return {
-        hour: Number(document.getElementById(prefix + "Hour")?.value ?? (format == "12" ? 1 : 0)),
-        minute: Number(document.getElementById(prefix + "Minute")?.value ?? 0),
-        second: document.getElementById(prefix + "Second") ? Number(document.getElementById(prefix + "Second").value) : null,
-        ampm: document.getElementById(prefix + "AMPM")?.value ?? "AM"
-      };
-    }
-    const startVals = getValues("start");
-    const endVals = getValues("end");
+        .time-calculator-container #timeCalculatorFormat {
+            padding: 6px 7px;
+            font-size: 1em;
+            border-radius: 6px;
+            border: 1.5px solid #ad2a24;
+            background: #fff7f4;
+            color: #ad2a24;
+            min-width: 100px;
+            cursor: pointer;
+        }
 
-    startTimeInputs.innerHTML = "";
-    endTimeInputs.innerHTML = "";
-    createTimeInputs("start", format, showSeconds, startVals).elements.forEach(e => startTimeInputs.appendChild(e));
-    createTimeInputs("end", format, showSeconds, endVals).elements.forEach(e => endTimeInputs.appendChild(e));
+        .time-calculator-container #timeCalculatorFormat:focus {
+            box-shadow: 0 0 6px #ad2a2422;
+        }
 
-    outputDiv.classList.remove("show-result");
-    errorDiv.classList.remove("show");
-    outputDiv.innerHTML = "";
-    errorDiv.innerHTML = "";
-  }
+        .time-calculator-straight-line {
+            height: 3px;
+            background: #d4c9a8;
+            border-radius: 2px;
+            margin: 8px 0 12px;
+        }
 
-  function getTime(prefix) {
-    const format = formatSelect.value;
-    const hour = Number(document.getElementById(prefix + "Hour").value);
-    const minute = Number(document.getElementById(prefix + "Minute").value);
-    let second = includeSecondsCheckbox.checked ? Number(document.getElementById(prefix + "Second").value) : 0;
-    let ampm = format === "12" ? document.getElementById(prefix + "AMPM").value : null;
-    return {hour, minute, second, ampm};
-  }
+        .time-calculator-container h4 {
+            margin: 20px 0 7px;
+            font-size: 1.1em;
+            color: #ad2a24;
+            font-weight: 600;
+        }
 
-  function validateInputs(time, format) {
-    if (format == "12") {
-      if (!(time.hour >= 1 && time.hour <= 12)) return "Hour must be 1-12.";
-    } else {
-      if (!(time.hour >= 0 && time.hour <= 23)) return "Hour must be 0-23.";
-    }
-    if (!(time.minute >= 0 && time.minute <= 59)) return "Minute must be 0-59.";
-    if (includeSecondsCheckbox.checked && !(time.second >= 0 && time.second <= 59)) return "Second must be 0-59.";
-    return "";
-  }
+        .time-calculator-input-block {
+            background: #fff6f4;
+            border-radius: 8px;
+            padding: 10px 13px;
+        }
 
-  function pad(n){return String(n).padStart(2, "0");}
-  function formatDisplay(time, format) {
-    if (format == "12") {
-      return pad(((time.hour - 1) % 12) + 1) + ":" + pad(time.minute) +
-        (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "") + " " + time.ampm;
-    } else {
-      return pad(time.hour) + ":" + pad(time.minute) + (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "");
-    }
-  }
-  function to24Hour(hour, ampm) {
-    if (ampm == "AM") return hour == 12 ? 0 : hour;
-    else return hour == 12 ? 12 : hour + 12;
-  }
-  function toSeconds(time, format) {
-    let h = format == "12" ? to24Hour(time.hour, time.ampm) : time.hour;
-    let m = time.minute;
-    let s = includeSecondsCheckbox.checked ? time.second : 0;
-    return h * 3600 + m * 60 + s;
-  }
+        .time-calculator-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-  function calculateResult() {
-    errorDiv.innerHTML = "";
-    errorDiv.classList.remove("show");
-    outputDiv.innerHTML = "";
-    outputDiv.classList.remove("show-result");
+        .time-calculator-container input[type="number"], 
+        .time-calculator-container select {
+            padding: 6px 7px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1.2px solid #ad2a24;
+            background: #fffaf7;
+            color: #ad2a24;
+            width: 60px;
+            box-sizing: border-box;
+        }
 
-    const format = formatSelect.value;
-    const start = getTime("start");
-    const end = getTime("end");
+        .time-calculator-container input[type="number"]:focus, 
+        .time-calculator-container select:focus {
+            box-shadow: 0 0 7px #ad2a2430;
+        }
 
-    let errStart = validateInputs(start, format);
-    let errEnd = validateInputs(end, format);
-    if (errStart || errEnd) {
-      errorDiv.innerHTML = (errStart ? "Start time: " + errStart : "") + (errEnd ? "<br>End time: " + errEnd : "");
-      errorDiv.classList.add("show");
-      return;
-    }
+        .time-calculator-container button {
+            padding: 9px 19px;
+            border: none;
+            border-radius: 8px;
+            background: #ad2a24;
+            color: #fff9f5;
+            font-size: 1em;
+            font-weight: bold;
+            min-width: 90px;
+            box-shadow: 0 2px 6px #ad2a241a;
+            cursor: pointer;
+            transition: background 0.17s, transform 0.13s;
+        }
 
-    const s1 = toSeconds(start, format);
-    const s2 = toSeconds(end, format);
-    let diff = s2 - s1;
-    let abs = false;
-    if (diff < 0) {abs = true; diff = -diff;}
+        .time-calculator-container button:hover, 
+        .time-calculator-container button:focus {
+            background: #bc2e28;
+            transform: scale(1.05);
+        }
 
-    let hours = Math.floor(diff / 3600);
-    let mins = Math.floor((diff % 3600) / 60);
-    let secs = diff % 60;
+        .time-calculator-container #timeCalculatorCalcBtn {
+            background: #23b616;
+            font-size: 1.05em;
+        }
 
-    let resultBold = `<span class="result-bold">${hours} hour${hours !== 1 ? "s" : ""}, ${mins} minute${mins !== 1 ? "s" : ""}`;
-    if (includeSecondsCheckbox.checked) resultBold += `, ${secs} second${secs !== 1 ? "s" : ""}`;
-    resultBold += `</span>`;
+        .time-calculator-container #timeCalculatorCalcBtn:hover {
+            background: #1f9e14;
+        }
 
-    let heading = abs ? `Time difference (absolute):` : `Result:`;
+        .time-calculator-result-block {
+            background: #fff;
+            border-radius: 5px;
+            margin-top: 26px;
+            padding: 15px 18px;
+            border:  1px solid #d4c9a8;
+            color: #ad2a24;
+            font-size: 1.15em;
+            display: none;
+            box-shadow: 0 2px 8px #ad2a2430;
+        }
 
-    outputDiv.innerHTML = `<div style="font-weight:bold;margin-bottom:6px">${heading}</div>
-      ${resultBold}
-      <div style="margin-top:8px;font-size:0.95em">
-        <b>From:</b> ${formatDisplay(start, format)}<br>
-        <b>To:</b> ${formatDisplay(end, format)}
-      </div>`;
-    outputDiv.classList.add("show-result");
-  }
+        .time-calculator-result-block.show-result {
+            display: block;
+            animation: fadePop 0.4s;
+        }
 
-  function reset() {
-    formatSelect.value = "12";
-    includeSecondsCheckbox.checked = false;
-    renderInputs();
-    errorDiv.innerHTML = "";
-    outputDiv.innerHTML = "";
-    errorDiv.classList.remove("show");
-    outputDiv.classList.remove("show-result");
-  }
+        @keyframes fadePop {
+            0% {opacity: 0; transform: scale(0.97);}
+            80% {opacity: 1; transform: scale(1.03);}
+            100% {opacity: 1;}
+        }
 
-  function swapInputs() {
-    const format = formatSelect.value;
-    let s = getTime("start");
-    let e = getTime("end");
-    startTimeInputs.innerHTML = "";
-    endTimeInputs.innerHTML = "";
-    createTimeInputs("start", format, includeSecondsCheckbox.checked, e).elements.forEach(el => startTimeInputs.appendChild(el));
-    createTimeInputs("end", format, includeSecondsCheckbox.checked, s).elements.forEach(el => endTimeInputs.appendChild(el));
-    outputDiv.innerHTML = "";
-    outputDiv.classList.remove("show-result");
-    errorDiv.innerHTML = "";
-    errorDiv.classList.remove("show");
-  }
+        .time-calculator-result-bold {
+            font-weight: bold;
+            font-size: 1.05em;
+            background: #f9f5e8;
+            padding: 4px 8px;
+            border-radius: 7px;
+            display: inline-block;
+            margin-top: 6px;
+        }
 
-  formatSelect.onchange = renderInputs;
-  includeSecondsCheckbox.onchange = renderInputs;
-  calcBtn.onclick = calculateResult;
-  resetBtn.onclick = reset;
-  swapBtn.onclick = swapInputs;
-  renderInputs();
-</script>
+        .time-calculator-error {
+            color: #ad2a24;
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-top: 15px;
+            background: #ffe5e2;
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid #ad2a24;
+            display: none;
+        }
+
+        .time-calculator-error.show {
+            display: block;
+            animation: fadePop 0.3s;
+        }
+
+        @media (max-width: 480px) {
+            .time-calculator-container {
+                margin: 20px 12px; 
+                padding: 20px 14px;
+            }
+            
+            .time-calculator-container h2 {
+                font-size: 1.7em;
+            }
+            
+            .time-calculator-row {
+                flex-direction: column; 
+                align-items: stretch;
+            }
+            
+            .time-calculator-container input[type="number"], 
+            .time-calculator-container select {
+                width: 100%;
+            }
+            
+            .time-calculator-container button {
+                width: 100%; 
+                margin-top: 8px;
+            }
+        }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+    <script>
+        const startTimeInputs = document.getElementById("timeCalculatorStartInputs");
+        const endTimeInputs = document.getElementById("timeCalculatorEndInputs");
+        const formatSelect = document.getElementById("timeCalculatorFormat");
+        const includeSecondsCheckbox = document.getElementById("timeCalculatorIncludeSeconds");
+        const swapBtn = document.getElementById("timeCalculatorSwapBtn");
+        const resetBtn = document.getElementById("timeCalculatorResetBtn");
+        const calcBtn = document.getElementById("timeCalculatorCalcBtn");
+        const outputDiv = document.getElementById("timeCalculatorOutput");
+        const errorDiv = document.getElementById("timeCalculatorError");
+
+        function createTimeInputs(prefix, format, showSeconds, values = {}) {
+            const hourInput = document.createElement("input");
+            hourInput.type = "number";
+            hourInput.min = format == "12" ? 1 : 0;
+            hourInput.max = format == "12" ? 12 : 23;
+            hourInput.value = values.hour ?? (format == "12" ? 1 : 0);
+            hourInput.placeholder = "Hour";
+            hourInput.id = prefix + "Hour";
+            hourInput.className = "time-calculator-hour-input";
+
+            const minuteInput = document.createElement("input");
+            minuteInput.type = "number";
+            minuteInput.min = 0; 
+            minuteInput.max = 59;
+            minuteInput.value = values.minute ?? 0;
+            minuteInput.placeholder = "Min";
+            minuteInput.id = prefix + "Minute";
+            minuteInput.className = "time-calculator-minute-input";
+
+            let secondInput = null;
+            if (showSeconds) {
+                secondInput = document.createElement("input");
+                secondInput.type = "number";
+                secondInput.min = 0; 
+                secondInput.max = 59;
+                secondInput.value = values.second ?? 0;
+                secondInput.placeholder = "Sec";
+                secondInput.id = prefix + "Second";
+                secondInput.className = "time-calculator-second-input";
+            }
+
+            let ampmSelect = null;
+            if (format == "12") {
+                ampmSelect = document.createElement("select");
+                ampmSelect.id = prefix + "AMPM";
+                ampmSelect.className = "time-calculator-ampm-select";
+                ["AM","PM"].forEach(val => {
+                    const opt = document.createElement("option");
+                    opt.value = val; 
+                    opt.textContent = val;
+                    ampmSelect.appendChild(opt);
+                });
+                ampmSelect.value = values.ampm || "AM";
+            }
+
+            const elements = [hourInput, document.createTextNode(":"), minuteInput];
+            if (showSeconds) {
+                elements.push(document.createTextNode(":"));
+                elements.push(secondInput);
+            }
+            if (format == "12") elements.push(ampmSelect);
+            return {elements};
+        }
+
+        function renderInputs() {
+            const format = formatSelect.value;
+            const showSeconds = includeSecondsCheckbox.checked;
+            
+            function getValues(prefix) {
+                return {
+                    hour: Number(document.getElementById(prefix + "Hour")?.value) || (format == "12" ? 1 : 0),
+                    minute: Number(document.getElementById(prefix + "Minute")?.value) || 0,
+                    second: document.getElementById(prefix + "Second") ? Number(document.getElementById(prefix + "Second").value) : null,
+                    ampm: document.getElementById(prefix + "AMPM")?.value || "AM"
+                };
+            }
+            
+            const startVals = getValues("timeCalculatorStart");
+            const endVals = getValues("timeCalculatorEnd");
+
+            startTimeInputs.innerHTML = "";
+            endTimeInputs.innerHTML = "";
+            
+            createTimeInputs("timeCalculatorStart", format, showSeconds, startVals).elements.forEach(e => startTimeInputs.appendChild(e));
+            createTimeInputs("timeCalculatorEnd", format, showSeconds, endVals).elements.forEach(e => endTimeInputs.appendChild(e));
+
+            outputDiv.classList.remove("show-result");
+            errorDiv.classList.remove("show");
+            outputDiv.innerHTML = "";
+            errorDiv.innerHTML = "";
+        }
+
+        function getTime(prefix) {
+            const format = formatSelect.value;
+            const hour = Number(document.getElementById(prefix + "Hour").value);
+            const minute = Number(document.getElementById(prefix + "Minute").value);
+            let second = includeSecondsCheckbox.checked ? Number(document.getElementById(prefix + "Second").value) : 0;
+            let ampm = format === "12" ? document.getElementById(prefix + "AMPM").value : null;
+            return {hour, minute, second, ampm};
+        }
+
+        function validateInputs(time, format) {
+            if (format == "12") {
+                if (!(time.hour >= 1 && time.hour <= 12)) return "Hour must be 1-12.";
+            } else {
+                if (!(time.hour >= 0 && time.hour <= 23)) return "Hour must be 0-23.";
+            }
+            if (!(time.minute >= 0 && time.minute <= 59)) return "Minute must be 0-59.";
+            if (includeSecondsCheckbox.checked && !(time.second >= 0 && time.second <= 59)) return "Second must be 0-59.";
+            return "";
+        }
+
+        function pad(n){return String(n).padStart(2, "0");}
+        
+        function formatDisplay(time, format) {
+            if (format == "12") {
+                return pad(((time.hour - 1) % 12) + 1) + ":" + pad(time.minute) +
+                    (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "") + " " + time.ampm;
+            } else {
+                return pad(time.hour) + ":" + pad(time.minute) + (includeSecondsCheckbox.checked ? ":" + pad(time.second) : "");
+            }
+        }
+        
+        function to24Hour(hour, ampm) {
+            if (ampm == "AM") return hour == 12 ? 0 : hour;
+            else return hour == 12 ? 12 : hour + 12;
+        }
+        
+        function toSeconds(time, format) {
+            let h = format == "12" ? to24Hour(time.hour, time.ampm) : time.hour;
+            let m = time.minute;
+            let s = includeSecondsCheckbox.checked ? time.second : 0;
+            return h * 3600 + m * 60 + s;
+        }
+
+        function calculateResult() {
+            errorDiv.innerHTML = "";
+            errorDiv.classList.remove("show");
+            outputDiv.innerHTML = "";
+            outputDiv.classList.remove("show-result");
+
+            const format = formatSelect.value;
+            const start = getTime("timeCalculatorStart");
+            const end = getTime("timeCalculatorEnd");
+
+            let errStart = validateInputs(start, format);
+            let errEnd = validateInputs(end, format);
+            if (errStart || errEnd) {
+                errorDiv.innerHTML = (errStart ? "Start time: " + errStart : "") + (errEnd ? "<br>End time: " + errEnd : "");
+                errorDiv.classList.add("show");
+                return;
+            }
+
+            const s1 = toSeconds(start, format);
+            const s2 = toSeconds(end, format);
+            let diff = s2 - s1;
+            let abs = false;
+            if (diff < 0) {abs = true; diff = -diff;}
+
+            let hours = Math.floor(diff / 3600);
+            let mins = Math.floor((diff % 3600) / 60);
+            let secs = diff % 60;
+
+            let resultBold = `<span class="time-calculator-result-bold">${hours} hour${hours !== 1 ? "s" : ""}, ${mins} minute${mins !== 1 ? "s" : ""}`;
+            if (includeSecondsCheckbox.checked) resultBold += `, ${secs} second${secs !== 1 ? "s" : ""}`;
+            resultBold += `</span>`;
+
+            let heading = abs ? `Time difference (absolute):` : `Result:`;
+
+            outputDiv.innerHTML = `<div style="font-weight:bold;margin-bottom:6px">${heading}</div>
+                ${resultBold}
+                <div style="margin-top:8px;font-size:0.95em">
+                    <b>From:</b> ${formatDisplay(start, format)}<br>
+                    <b>To:</b> ${formatDisplay(end, format)}
+                </div>`;
+            outputDiv.classList.add("show-result");
+        }
+
+        function reset() {
+            formatSelect.value = "12";
+            includeSecondsCheckbox.checked = false;
+            renderInputs();
+            errorDiv.innerHTML = "";
+            outputDiv.innerHTML = "";
+            errorDiv.classList.remove("show");
+            outputDiv.classList.remove("show-result");
+        }
+
+        function swapInputs() {
+            const format = formatSelect.value;
+            let s = getTime("timeCalculatorStart");
+            let e = getTime("timeCalculatorEnd");
+            startTimeInputs.innerHTML = "";
+            endTimeInputs.innerHTML = "";
+            createTimeInputs("timeCalculatorStart", format, includeSecondsCheckbox.checked, e).elements.forEach(el => startTimeInputs.appendChild(el));
+            createTimeInputs("timeCalculatorEnd", format, includeSecondsCheckbox.checked, s).elements.forEach(el => endTimeInputs.appendChild(el));
+            outputDiv.innerHTML = "";
+            outputDiv.classList.remove("show-result");
+            errorDiv.innerHTML = "";
+            errorDiv.classList.remove("show");
+        }
+
+        // Initialize event listeners
+        formatSelect.addEventListener("change", renderInputs);
+        includeSecondsCheckbox.addEventListener("change", renderInputs);
+        calcBtn.addEventListener("click", calculateResult);
+        resetBtn.addEventListener("click", reset);
+        swapBtn.addEventListener("click", swapInputs);
+
+        // Initial render
+        renderInputs();
+    </script>
 </body>
 </html>
