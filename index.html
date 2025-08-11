@@ -6,36 +6,33 @@
 <title>Time Between Hours Calculator</title>
 <style>
   body {
-    background: #f8f4f2;
-    font-family: 'Georgia', 'Times New Roman', Times, serif;
+    background:  #fff;
+    font-family: 'Georgia', serif;
     margin: 0;
   }
   .container {
     max-width: 430px;
-    margin: 48px auto;
-    background: #fffdfb;
-    border-radius: 16px;
-    padding: 28px 24px 22px 24px;
-    border: 1.5px solid #ecdde0;
-    box-shadow: 0 3px 19px rgba(173,42,36,0.08);
-    box-sizing: border-box;
+    margin: 40px auto;
+    background: #f9f5e8;;
+    border-radius: 5px;
+    padding: 26px 24px;
+    border: 1px solid #d4c9a8;
+    box-shadow: 0 2px 12px rgba(173,42,36,0.08);
   }
   h2 {
-    margin: 0 0 10px 0;
+    margin: 0 0 12px;
     font-size: 2em;
     color: #ad2a24;
     font-weight: bold;
-    letter-spacing: -1px;
     text-align: center;
   }
   .top-row {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 14px;
     margin-bottom: 16px;
     justify-content: center;
     flex-wrap: wrap;
-    font-size: 1em;
   }
   .top-row label {
     display: flex;
@@ -43,16 +40,12 @@
     gap: 6px;
     color: #ad2a24;
     font-weight: 500;
-    cursor: pointer;
-    user-select: none;
     white-space: nowrap;
   }
   .top-row input[type="checkbox"] {
     accent-color: #ad2a24;
     width: 18px;
     height: 18px;
-    margin: 0;
-    cursor: pointer;
   }
   #format {
     padding: 6px 7px;
@@ -61,25 +54,20 @@
     border: 1.5px solid #ad2a24;
     background: #fff7f4;
     color: #ad2a24;
-    font-family: inherit;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
     min-width: 100px;
+    cursor: pointer;
   }
   #format:focus {
     box-shadow: 0 0 6px #ad2a2422;
   }
   .straight-line {
     height: 3px;
-    background: #ad2a24;
+    background: #d4c9a8;
     border-radius: 2px;
-    margin: 8px 0 12px 0;
-    border: none;
+    margin: 8px 0 12px;
   }
   h4 {
-    margin-top: 20px;
-    margin-bottom: 7px;
+    margin: 20px 0 7px;
     font-size: 1.1em;
     color: #ad2a24;
     font-weight: 600;
@@ -88,14 +76,11 @@
     background: #fff6f4;
     border-radius: 8px;
     padding: 10px 13px;
-    margin-bottom: 4px;
-    box-sizing: border-box;
   }
   .row {
     display: flex;
     gap: 8px;
     align-items: center;
-    margin-bottom: 14px;
     flex-wrap: wrap;
   }
   input[type="number"], select {
@@ -105,9 +90,7 @@
     border: 1.2px solid #ad2a24;
     background: #fffaf7;
     color: #ad2a24;
-    outline: none;
     width: 60px;
-    box-sizing: border-box;
   }
   input[type="number"]:focus, select:focus {
     box-shadow: 0 0 7px #ad2a2430;
@@ -119,54 +102,47 @@
     background: #ad2a24;
     color: #fff9f5;
     font-size: 1em;
-    font-family: inherit;
     font-weight: bold;
     min-width: 90px;
-    box-shadow: 0 2px 7px #ad2a2420;
+    box-shadow: 0 2px 6px #ad2a241a;
     cursor: pointer;
-    transition: background 0.17s, box-shadow 0.13s, transform 0.13s;
+    transition: background 0.17s, transform 0.13s;
   }
   button:hover, button:focus {
     background: #bc2e28;
-    transform: scale(1.06);
-    box-shadow: 0 7px 22px #ad2a2440;
-    outline: none;
+    transform: scale(1.05);
   }
-  button:disabled {
-    background: #ecdde0;
-    color: #ad9a94;
-    box-shadow: none;
-    cursor: not-allowed;
+  #calcBtn {
+    background: #23b616;
+    font-size: 1.05em;
+  }
+  #calcBtn:hover {
+    background: #1f9e14;
   }
   .result-block {
-    background: #f3c8c2;
-    border-radius: 10px;
-    margin-top: 32px;
-    padding: 13px 20px;
-    border: 1.1px solid #ad2a24;
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 26px;
+    padding: 15px 18px;
+    border:  1px solid #d4c9a8;
     color: #ad2a24;
-    font-size: 1.13em;
-    font-family: inherit;
+    font-size: 1.15em;
     display: none;
-    transition: opacity 0.27s;
-    word-break: break-word;
-    min-height: 36px;
+    box-shadow: 0 2px 8px #ad2a2430;
   }
   .show-result {
     display: block;
-    opacity: 1;
     animation: fadePop 0.4s;
   }
   @keyframes fadePop {
-    0%   {opacity: 0; transform: scale(0.97);}
-    80%  {opacity: 1; transform: scale(1.04);}
-    100% {opacity: 1; transform: scale(1);}
+    0% {opacity: 0; transform: scale(0.97);}
+    80% {opacity: 1; transform: scale(1.03);}
+    100% {opacity: 1;}
   }
   .result-bold {
     font-weight: bold;
-    font-size: 1.14em;
-    color: #ad2a24;
-    background: #fff3ed;
+    font-size: 1.05em;
+    background: #f9f5e8;
     padding: 4px 8px;
     border-radius: 7px;
     display: inline-block;
@@ -175,44 +151,37 @@
   .error {
     color: #ad2a24;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 0.95em;
     margin-top: 15px;
     background: #ffe5e2;
-    padding: 7px 12px 6px 12px;
+    padding: 7px 12px;
     border-radius: 8px;
     border: 1px solid #ad2a24;
     display: none;
   }
   .error.show {
-     display: block; animation: fadePop 0.3s;
-     }
-#calcBtn{
-  background: #23b616;
-  font-size: larger;
-}
-
-  /* Responsive */
+    display: block;
+    animation: fadePop 0.3s;
+  }
   @media (max-width: 480px) {
-    .container { margin: 20px 12px; padding: 20px 14px 18px 14px; }
-    h2 { font-size: 1.7em; }
-    .top-row { justify-content: flex-start; gap: 12px; font-size: 0.95em; }
-    .row { flex-direction: column; align-items: stretch; margin-bottom: 12px; }
-    input[type="number"], select { width: 100%; font-size: 1.05em; padding: 8px 10px; }
-    .input-block { padding: 10px 12px; }
-    button { width: 100%; margin-top: 8px;}
-    .result-block { font-size: 1.1em; }
+    .container {margin: 20px 12px; padding: 20px 14px;}
+    h2 {font-size: 1.7em;}
+    .row {flex-direction: column; align-items: stretch;}
+    input[type="number"], select {width: 100%;}
+    button {width: 100%; margin-top: 8px;}
   }
 </style>
 </head>
 <body>
-<div class="container" role="main">
+<div class="container">
   <h2>Time Between Hours Calculator</h2>
   <div class="top-row">
-    <label for="format">Time Format:</label>
-    <select id="format">
-      <option value="24">24-hour</option>
-      <option value="12" selected>12-hour (AM/PM)</option>
-    </select>
+    <label>Time Format:
+      <select id="format">
+        <option value="24">24-hour</option>
+        <option value="12" selected>12-hour (AM/PM)</option>
+      </select>
+    </label>
     <label><input type="checkbox" id="includeSeconds"> Include Seconds</label>
   </div>
   <div class="straight-line"></div>
@@ -232,6 +201,7 @@
   <div id="error" class="error"></div>
   <div id="output" class="result-block"></div>
 </div>
+
 <script>
   const startTimeInputs = document.getElementById("startTimeInputs");
   const endTimeInputs = document.getElementById("endTimeInputs");
@@ -251,12 +221,14 @@
     hourInput.value = values.hour ?? (format == "12" ? 1 : 0);
     hourInput.placeholder = "Hour";
     hourInput.id = prefix + "Hour";
+
     const minuteInput = document.createElement("input");
     minuteInput.type = "number";
     minuteInput.min = 0; minuteInput.max = 59;
     minuteInput.value = values.minute ?? 0;
     minuteInput.placeholder = "Min";
     minuteInput.id = prefix + "Minute";
+
     let secondInput = null;
     if (showSeconds) {
       secondInput = document.createElement("input");
@@ -266,6 +238,7 @@
       secondInput.placeholder = "Sec";
       secondInput.id = prefix + "Second";
     }
+
     let ampmSelect = null;
     if (format == "12") {
       ampmSelect = document.createElement("select");
@@ -277,10 +250,11 @@
       });
       ampmSelect.value = values.ampm || "AM";
     }
+
     const elements = [hourInput, document.createTextNode(":"), minuteInput];
     if (showSeconds) {elements.push(document.createTextNode(":")); elements.push(secondInput);}
     if (format == "12") elements.push(ampmSelect);
-    return {elements, hourInput, minuteInput, secondInput, ampmSelect};
+    return {elements};
   }
 
   function renderInputs() {
@@ -296,12 +270,12 @@
     }
     const startVals = getValues("start");
     const endVals = getValues("end");
+
     startTimeInputs.innerHTML = "";
     endTimeInputs.innerHTML = "";
-    const start = createTimeInputs("start", format, showSeconds, startVals);
-    const end = createTimeInputs("end", format, showSeconds, endVals);
-    start.elements.forEach(e => startTimeInputs.appendChild(e));
-    end.elements.forEach(e => endTimeInputs.appendChild(e));
+    createTimeInputs("start", format, showSeconds, startVals).elements.forEach(e => startTimeInputs.appendChild(e));
+    createTimeInputs("end", format, showSeconds, endVals).elements.forEach(e => endTimeInputs.appendChild(e));
+
     outputDiv.classList.remove("show-result");
     errorDiv.classList.remove("show");
     outputDiv.innerHTML = "";
@@ -318,8 +292,11 @@
   }
 
   function validateInputs(time, format) {
-    if (format == "12") { if (!(time.hour >= 1 && time.hour <= 12)) return "Hour must be 1-12."; }
-    else { if (!(time.hour >= 0 && time.hour <= 23)) return "Hour must be 0-23."; }
+    if (format == "12") {
+      if (!(time.hour >= 1 && time.hour <= 12)) return "Hour must be 1-12.";
+    } else {
+      if (!(time.hour >= 0 && time.hour <= 23)) return "Hour must be 0-23.";
+    }
     if (!(time.minute >= 0 && time.minute <= 59)) return "Minute must be 0-59.";
     if (includeSecondsCheckbox.checked && !(time.second >= 0 && time.second <= 59)) return "Second must be 0-59.";
     return "";
@@ -340,7 +317,8 @@
   }
   function toSeconds(time, format) {
     let h = format == "12" ? to24Hour(time.hour, time.ampm) : time.hour;
-    let m = time.minute; let s = includeSecondsCheckbox.checked ? time.second : 0;
+    let m = time.minute;
+    let s = includeSecondsCheckbox.checked ? time.second : 0;
     return h * 3600 + m * 60 + s;
   }
 
@@ -349,9 +327,11 @@
     errorDiv.classList.remove("show");
     outputDiv.innerHTML = "";
     outputDiv.classList.remove("show-result");
+
     const format = formatSelect.value;
     const start = getTime("start");
     const end = getTime("end");
+
     let errStart = validateInputs(start, format);
     let errEnd = validateInputs(end, format);
     if (errStart || errEnd) {
@@ -359,21 +339,29 @@
       errorDiv.classList.add("show");
       return;
     }
+
     const s1 = toSeconds(start, format);
     const s2 = toSeconds(end, format);
     let diff = s2 - s1;
     let abs = false;
     if (diff < 0) {abs = true; diff = -diff;}
+
     let hours = Math.floor(diff / 3600);
     let mins = Math.floor((diff % 3600) / 60);
     let secs = diff % 60;
+
     let resultBold = `<span class="result-bold">${hours} hour${hours !== 1 ? "s" : ""}, ${mins} minute${mins !== 1 ? "s" : ""}`;
     if (includeSecondsCheckbox.checked) resultBold += `, ${secs} second${secs !== 1 ? "s" : ""}`;
     resultBold += `</span>`;
+
     let heading = abs ? `Time difference (absolute):` : `Result:`;
-    outputDiv.innerHTML = `<b>From:</b> ${formatDisplay(start, format)}<br>
-      <b>To:</b> ${formatDisplay(end, format)}<br>
-      <div style="margin-top:8px"><span style="font-weight:bold;color:#ad2a24">${heading}</span><br>${resultBold}</div>`;
+
+    outputDiv.innerHTML = `<div style="font-weight:bold;margin-bottom:6px">${heading}</div>
+      ${resultBold}
+      <div style="margin-top:8px;font-size:0.95em">
+        <b>From:</b> ${formatDisplay(start, format)}<br>
+        <b>To:</b> ${formatDisplay(end, format)}
+      </div>`;
     outputDiv.classList.add("show-result");
   }
 
@@ -393,10 +381,8 @@
     let e = getTime("end");
     startTimeInputs.innerHTML = "";
     endTimeInputs.innerHTML = "";
-    let startElems = createTimeInputs("start", format, includeSecondsCheckbox.checked, e);
-    let endElems = createTimeInputs("end", format, includeSecondsCheckbox.checked, s);
-    startElems.elements.forEach(el => startTimeInputs.appendChild(el));
-    endElems.elements.forEach(el => endTimeInputs.appendChild(el));
+    createTimeInputs("start", format, includeSecondsCheckbox.checked, e).elements.forEach(el => startTimeInputs.appendChild(el));
+    createTimeInputs("end", format, includeSecondsCheckbox.checked, s).elements.forEach(el => endTimeInputs.appendChild(el));
     outputDiv.innerHTML = "";
     outputDiv.classList.remove("show-result");
     errorDiv.innerHTML = "";
