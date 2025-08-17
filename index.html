@@ -462,14 +462,33 @@
         }
 
         function reset() {
-            formatSelect.value = "12";
-            includeSecondsCheckbox.checked = false;
-            renderInputs();
-            errorDiv.innerHTML = "";
-            outputDiv.innerHTML = "";
-            errorDiv.classList.remove("show");
-            outputDiv.classList.remove("show-result");
-        }
+    // Reset options
+    formatSelect.value = "12";
+    includeSecondsCheckbox.checked = false;
+
+    // Explicitly reset Start Time to 10:00 AM
+    startTimeInputs.innerHTML = "";
+    createTimeInputs("timeCalculatorStart", "12", false, {
+        hour: 10,
+        minute: 0,
+        ampm: "AM"
+    }).elements.forEach(e => startTimeInputs.appendChild(e));
+
+    // Explicitly reset End Time to 10:00 PM
+    endTimeInputs.innerHTML = "";
+    createTimeInputs("timeCalculatorEnd", "12", false, {
+        hour: 10,
+        minute: 0,
+        ampm: "PM"
+    }).elements.forEach(e => endTimeInputs.appendChild(e));
+
+    // Clear error + result outputs
+    errorDiv.innerHTML = "";
+    outputDiv.innerHTML = "";
+    errorDiv.classList.remove("show");
+    outputDiv.classList.remove("show-result");
+}
+
 
         function swapInputs() {
             const format = formatSelect.value;
