@@ -12,15 +12,6 @@
         document.getElementById('TimeCalculatorContainer').innerHTML = `
         <div class="time-calculator-container">
             <h2>Time Between Hours Calculator</h2>
-            <div class="time-calculator-top-row">
-                <label>Time Format:
-                    <select id="timeCalculatorFormat">
-                        <option value="24">24-hour</option>
-                        <option value="12" selected>12-hour (AM/PM)</option>
-                    </select>
-                </label>
-                <label><input type="checkbox" id="timeCalculatorIncludeSeconds"> Include Seconds</label>
-            </div>
             <div class="time-calculator-straight-line"></div>
             <section>
                 <h4>Start Time</h4>
@@ -30,10 +21,19 @@
                 <h4>End Time</h4>
                 <div class="time-calculator-input-block"><div class="time-calculator-row" id="timeCalculatorEndInputs"></div></div>
             </section>
-            <div class="time-calculator-row">
-                <button id="timeCalculatorSwapBtn">Swap</button>
-                <button id="timeCalculatorResetBtn">Reset</button>
-                <button id="timeCalculatorCalcBtn">Calculate</button>
+            <div class="time-calculator-options-row">
+                <label>Time Format:
+                    <select id="timeCalculatorFormat">
+                        <option value="24">24-hour</option>
+                        <option value="12" selected>12-hour (AM/PM)</option>
+                    </select>
+                </label>
+                <label><input type="checkbox" id="timeCalculatorIncludeSeconds"> Include Seconds</label>
+            </div>
+            <div class="time-calculator-button-row">
+                <button id="timeCalculatorCalcBtn" class="time-calculator-primary-btn">Calculate</button>
+                <button id="timeCalculatorResetBtn" class="time-calculator-secondary-btn">Reset</button>
+                <button id="timeCalculatorSwapBtn" class="time-calculator-tertiary-btn">Swap Times</button>
             </div>
             <div id="timeCalculatorError" class="time-calculator-error"></div>
             <div id="timeCalculatorOutput" class="time-calculator-result-block"></div>
@@ -60,45 +60,6 @@
             color:  #553a4d;
             font-weight: bold;
             text-align: center;
-        }
-
-        .time-calculator-top-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .time-calculator-top-row label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #af6b35;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .time-calculator-top-row input[type="checkbox"] {
-            accent-color: #af6b35;
-            width: 18px;
-            height: 18px;
-        }
-
-        .time-calculator-container #timeCalculatorFormat {
-            padding: 6px 7px;
-            font-size: 1em;
-            border-radius: 6px;
-            border: 1.5px solid e6dfd0;
-            background: #fff7f4;
-            color: #af6b35;
-            min-width: 100px;
-            cursor: pointer;
-        }
-
-        .time-calculator-container #timeCalculatorFormat:focus {
-            box-shadow: 0 0 6px #ad2a2422;
         }
 
         .time-calculator-straight-line {
@@ -128,6 +89,45 @@
             flex-wrap: wrap;
         }
 
+        .time-calculator-options-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 16px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .time-calculator-options-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #af6b35;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .time-calculator-options-row input[type="checkbox"] {
+            accent-color: #af6b35;
+            width: 18px;
+            height: 18px;
+        }
+
+        .time-calculator-container #timeCalculatorFormat {
+            padding: 6px 7px;
+            font-size: 1em;
+            border-radius: 6px;
+            border: 1.5px solid e6dfd0;
+            background: #fff7f4;
+            color: #af6b35;
+            min-width: 100px;
+            cursor: pointer;
+        }
+
+        .time-calculator-container #timeCalculatorFormat:focus {
+            box-shadow: 0 0 6px #ad2a2422;
+        }
+
         .time-calculator-container input[type="number"], 
         .time-calculator-container select {
             padding: 6px 7px;
@@ -145,33 +145,57 @@
             box-shadow: 0 0 7px #ad2a2430;
         }
 
+        .time-calculator-button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
         .time-calculator-container button {
             padding: 9px 19px;
             border: none;
             border-radius: 8px;
-            background: #ad2a24;
-            color: #fff9f5;
             font-size: 1em;
             font-weight: bold;
             min-width: 90px;
-            box-shadow: 0 2px 6px #ad2a241a;
             cursor: pointer;
-            transition: background 0.17s, transform 0.13s;
+            transition: all 0.2s ease;
         }
 
-        .time-calculator-container button:hover, 
-        .time-calculator-container button:focus {
-            background: #bc2e28;
-            transform: scale(1.05);
-        }
-
-        .time-calculator-container #timeCalculatorCalcBtn {
+        .time-calculator-primary-btn {
             background: #23b616;
-            font-size: 1.05em;
+            color: white;
+            box-shadow: 0 2px 6px rgba(35, 182, 22, 0.2);
         }
 
-        .time-calculator-container #timeCalculatorCalcBtn:hover {
+        .time-calculator-primary-btn:hover {
             background: #1f9e14;
+            transform: translateY(-2px);
+        }
+
+        .time-calculator-secondary-btn {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-calculator-secondary-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .time-calculator-tertiary-btn {
+            background: #ad2a24;
+            color: white;
+            box-shadow: 0 2px 6px rgba(173, 42, 36, 0.2);
+        }
+
+        .time-calculator-tertiary-btn:hover {
+            background: #bc2e28;
+            transform: translateY(-2px);
         }
 
         .time-calculator-result-block {
@@ -244,6 +268,11 @@
                 width: 100%;
             }
             
+            .time-calculator-button-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
             .time-calculator-container button {
                 width: 100%; 
                 margin-top: 8px;
@@ -269,7 +298,7 @@
             hourInput.type = "number";
             hourInput.min = format == "12" ? 1 : 0;
             hourInput.max = format == "12" ? 12 : 23;
-            hourInput.value = values.hour ?? (format == "12" ? 1 : 0);
+            hourInput.value = values.hour ?? (format == "12" ? 10 : 10); // Default to 10
             hourInput.placeholder = "Hour";
             hourInput.id = prefix + "Hour";
             hourInput.className = "time-calculator-hour-input";
@@ -306,7 +335,7 @@
                     opt.textContent = val;
                     ampmSelect.appendChild(opt);
                 });
-                ampmSelect.value = values.ampm || "AM";
+                ampmSelect.value = values.ampm || (prefix === "timeCalculatorEnd" ? "PM" : "AM"); // Default to PM for end time
             }
 
             const elements = [hourInput, document.createTextNode(":"), minuteInput];
@@ -324,10 +353,10 @@
             
             function getValues(prefix) {
                 return {
-                    hour: Number(document.getElementById(prefix + "Hour")?.value) || (format == "12" ? 1 : 0),
+                    hour: Number(document.getElementById(prefix + "Hour")?.value) || (format == "12" ? 10 : 10),
                     minute: Number(document.getElementById(prefix + "Minute")?.value) || 0,
                     second: document.getElementById(prefix + "Second") ? Number(document.getElementById(prefix + "Second").value) : null,
-                    ampm: document.getElementById(prefix + "AMPM")?.value || "AM"
+                    ampm: document.getElementById(prefix + "AMPM")?.value || (prefix === "timeCalculatorEnd" ? "PM" : "AM")
                 };
             }
             
