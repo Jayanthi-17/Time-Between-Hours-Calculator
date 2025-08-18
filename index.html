@@ -114,7 +114,186 @@
             flex-wrap: wrap;
         }
 
-        /* ... (rest of your existing CSS remains the same) ... */
+        .time-calculator-options-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #af6b35;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .time-calculator-options-row input[type="checkbox"] {
+            accent-color: #af6b35;
+            width: 18px;
+            height: 18px;
+        }
+
+        .time-calculator-container #timeCalculatorFormat {
+            padding: 6px 7px;
+            font-size: 1em;
+            border-radius: 6px;
+            border: 1.5px solid e6dfd0;
+            background: #fff7f4;
+            color: #af6b35;
+            min-width: 100px;
+            cursor: pointer;
+        }
+
+        .time-calculator-container #timeCalculatorFormat:focus {
+            box-shadow: 0 0 6px #ad2a2422;
+        }
+
+        .time-calculator-container input[type="number"], 
+        .time-calculator-container select {
+            padding: 6px 7px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1.2px solid #e6dfd0;
+            background: #fffaf7;
+            color: black;
+            width: 60px;
+            box-sizing: border-box;
+        }
+
+        .time-calculator-container input[type="number"]:focus, 
+        .time-calculator-container select:focus {
+            box-shadow: 0 0 7px #ad2a2430;
+        }
+
+        .time-calculator-button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-calculator-container button {
+            padding: 9px 19px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            min-width: 90px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .time-calculator-primary-btn {
+            background: #23b616;
+            color: white;
+            box-shadow: 0 2px 6px rgba(35, 182, 22, 0.2);
+        }
+
+        .time-calculator-primary-btn:hover {
+            background: #1f9e14;
+            transform: translateY(-2px);
+        }
+
+        .time-calculator-secondary-btn {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-calculator-secondary-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .time-calculator-tertiary-btn {
+            background: #ad2a24;
+            color: white;
+            box-shadow: 0 2px 6px rgba(173, 42, 36, 0.2);
+        }
+
+        .time-calculator-tertiary-btn:hover {
+            background: #bc2e28;
+            transform: translateY(-2px);
+        }
+
+        .time-calculator-result-block {
+            background: #fff;
+            border-radius: 5px;
+            margin-top: 26px;
+            padding: 15px 18px;
+            border:  1px solid #d4c9a8;
+            color: #ad2a24;
+            font-size: 1.15em;
+            display: none;
+            box-shadow: 0 2px 8px #ad2a2430;
+        }
+
+        .time-calculator-result-block.show-result {
+            display: block;
+            animation: fadePop 0.4s;
+        }
+
+        @keyframes fadePop {
+            0% {opacity: 0; transform: scale(0.97);}
+            80% {opacity: 1; transform: scale(1.03);}
+            100% {opacity: 1;}
+        }
+
+        .time-calculator-result-bold {
+            font-weight: bold;
+            font-size: 1.05em;
+            background: #f9f5e8;
+            padding: 4px 8px;
+            border-radius: 7px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        .time-calculator-error {
+            color: #ad2a24;
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-top: 15px;
+            background: #ffe5e2;
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid #ad2a24;
+            display: none;
+        }
+
+        .time-calculator-error.show {
+            display: block;
+            animation: fadePop 0.3s;
+        }
+
+        @media (max-width: 480px) {
+            .time-calculator-container {
+                margin: 20px 12px; 
+                padding: 20px 14px;
+            }
+            
+            .time-calculator-container h2 {
+                font-size: 1.7em;
+            }
+            
+            .time-calculator-row {
+                flex-direction: column; 
+                align-items: stretch;
+            }
+            
+            .time-calculator-container input[type="number"], 
+            .time-calculator-container select {
+                width: 100%;
+            }
+            
+            .time-calculator-button-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .time-calculator-container button {
+                width: 100%; 
+                margin-top: 8px;
+            }
+        }
         `;
         document.head.appendChild(style);
     </script>
@@ -140,7 +319,7 @@
             
             block.innerHTML = `
                 <div class="time-block-header">
-                    <div class="time-block-title">Time Block #${index + 1}</div>
+                    <div class="time-block-title">Time Period #${index + 1}</div>
                     <button class="remove-time-block" onclick="removeTimeBlock(${index})">×</button>
                 </div>
                 <section>
