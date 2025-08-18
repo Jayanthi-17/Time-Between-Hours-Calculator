@@ -40,10 +40,10 @@
         </div>
         `;
 
-        // Add CSS (same as before with minor additions)
+        // Add CSS with proper scoping
         const style = document.createElement('style');
         style.textContent = `
-        .time-calculator-container {
+        #TimeCalculatorContainer .time-calculator-container {
             max-width: 500px;
             margin: 40px auto;
             background: #f9f6ee;
@@ -54,22 +54,22 @@
             font-family: 'Georgia', serif;
         }
 
-        .time-calculator-container h2 {
+        #TimeCalculatorContainer .time-calculator-container h2 {
             margin: 0 0 12px;
             font-size: 2em;
-            color:  #553a4d;
+            color: #553a4d;
             font-weight: bold;
             text-align: center;
         }
 
-        .time-calculator-straight-line {
+        #TimeCalculatorContainer .time-calculator-straight-line {
             height: 3px;
             background: #d4c9a8;
             border-radius: 2px;
             margin: 8px 0 12px;
         }
 
-        .time-block {
+        #TimeCalculatorContainer .time-block {
             background: #fff6f4;
             border-radius: 8px;
             padding: 15px;
@@ -77,19 +77,19 @@
             border: 1px solid #e6dfd0;
         }
 
-        .time-block-header {
+        #TimeCalculatorContainer .time-block-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
 
-        .time-block-title {
+        #TimeCalculatorContainer .time-block-title {
             font-weight: bold;
             color: #af6b35;
         }
 
-        .remove-time-block {
+        #TimeCalculatorContainer .remove-time-block {
             background: #ad2a24;
             color: white;
             border: none;
@@ -98,14 +98,14 @@
             cursor: pointer;
         }
 
-        .time-calculator-row {
+        #TimeCalculatorContainer .time-calculator-row {
             display: flex;
             gap: 8px;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        .time-calculator-options-row {
+        #TimeCalculatorContainer .time-calculator-options-row {
             display: flex;
             align-items: center;
             gap: 14px;
@@ -114,7 +114,7 @@
             flex-wrap: wrap;
         }
 
-        .time-calculator-options-row label {
+        #TimeCalculatorContainer .time-calculator-options-row label {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -123,29 +123,29 @@
             white-space: nowrap;
         }
 
-        .time-calculator-options-row input[type="checkbox"] {
+        #TimeCalculatorContainer .time-calculator-options-row input[type="checkbox"] {
             accent-color: #af6b35;
             width: 18px;
             height: 18px;
         }
 
-        .time-calculator-container #timeCalculatorFormat {
+        #TimeCalculatorContainer #timeCalculatorFormat {
             padding: 6px 7px;
             font-size: 1em;
             border-radius: 6px;
-            border: 1.5px solid e6dfd0;
+            border: 1.5px solid #e6dfd0;
             background: #fff7f4;
             color: #af6b35;
             min-width: 100px;
             cursor: pointer;
         }
 
-        .time-calculator-container #timeCalculatorFormat:focus {
+        #TimeCalculatorContainer #timeCalculatorFormat:focus {
             box-shadow: 0 0 6px #ad2a2422;
         }
 
-        .time-calculator-container input[type="number"], 
-        .time-calculator-container select {
+        #TimeCalculatorContainer input[type="number"], 
+        #TimeCalculatorContainer select {
             padding: 6px 7px;
             font-size: 1em;
             border-radius: 5px;
@@ -156,12 +156,12 @@
             box-sizing: border-box;
         }
 
-        .time-calculator-container input[type="number"]:focus, 
-        .time-calculator-container select:focus {
+        #TimeCalculatorContainer input[type="number"]:focus, 
+        #TimeCalculatorContainer select:focus {
             box-shadow: 0 0 7px #ad2a2430;
         }
 
-        .time-calculator-button-row {
+        #TimeCalculatorContainer .time-calculator-button-row {
             display: flex;
             gap: 10px;
             justify-content: center;
@@ -169,7 +169,7 @@
             flex-wrap: wrap;
         }
 
-        .time-calculator-container button {
+        #TimeCalculatorContainer button {
             padding: 9px 19px;
             border: none;
             border-radius: 8px;
@@ -180,53 +180,42 @@
             transition: all 0.2s ease;
         }
 
-        .time-calculator-primary-btn {
+        #TimeCalculatorContainer .time-calculator-primary-btn {
             background: #23b616;
             color: white;
             box-shadow: 0 2px 6px rgba(35, 182, 22, 0.2);
         }
 
-        .time-calculator-primary-btn:hover {
+        #TimeCalculatorContainer .time-calculator-primary-btn:hover {
             background: #1f9e14;
             transform: translateY(-2px);
         }
 
-        .time-calculator-secondary-btn {
+        #TimeCalculatorContainer .time-calculator-secondary-btn {
             background: #f0f0f0;
             color: #333;
             border: 1px solid #ccc;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .time-calculator-secondary-btn:hover {
+        #TimeCalculatorContainer .time-calculator-secondary-btn:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
         }
 
-        .time-calculator-tertiary-btn {
-            background: #ad2a24;
-            color: white;
-            box-shadow: 0 2px 6px rgba(173, 42, 36, 0.2);
-        }
-
-        .time-calculator-tertiary-btn:hover {
-            background: #bc2e28;
-            transform: translateY(-2px);
-        }
-
-        .time-calculator-result-block {
+        #TimeCalculatorContainer .time-calculator-result-block {
             background: #fff;
             border-radius: 5px;
             margin-top: 26px;
             padding: 15px 18px;
-            border:  1px solid #d4c9a8;
+            border: 1px solid #d4c9a8;
             color: #ad2a24;
             font-size: 1.15em;
             display: none;
             box-shadow: 0 2px 8px #ad2a2430;
         }
 
-        .time-calculator-result-block.show-result {
+        #TimeCalculatorContainer .time-calculator-result-block.show-result {
             display: block;
             animation: fadePop 0.4s;
         }
@@ -237,7 +226,7 @@
             100% {opacity: 1;}
         }
 
-        .time-calculator-result-bold {
+        #TimeCalculatorContainer .time-calculator-result-bold {
             font-weight: bold;
             font-size: 1.05em;
             background: #f9f5e8;
@@ -247,7 +236,7 @@
             margin-top: 6px;
         }
 
-        .time-calculator-error {
+        #TimeCalculatorContainer .time-calculator-error {
             color: #ad2a24;
             font-weight: bold;
             font-size: 0.95em;
@@ -259,39 +248,54 @@
             display: none;
         }
 
-        .time-calculator-error.show {
+        #TimeCalculatorContainer .time-calculator-error.show {
             display: block;
             animation: fadePop 0.3s;
         }
 
         @media (max-width: 480px) {
-            .time-calculator-container {
+            #TimeCalculatorContainer .time-calculator-container {
                 margin: 20px 12px; 
                 padding: 20px 14px;
             }
             
-            .time-calculator-container h2 {
+            #TimeCalculatorContainer .time-calculator-container h2 {
                 font-size: 1.7em;
             }
             
-            .time-calculator-row {
+            #TimeCalculatorContainer .time-calculator-row {
                 flex-direction: column; 
                 align-items: stretch;
+                gap: 5px;
             }
             
-            .time-calculator-container input[type="number"], 
-            .time-calculator-container select {
+            #TimeCalculatorContainer input[type="number"], 
+            #TimeCalculatorContainer select {
                 width: 100%;
+                padding: 8px 10px;
+                font-size: 1.1em;
             }
             
-            .time-calculator-button-row {
+            #TimeCalculatorContainer .time-calculator-button-row {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 8px;
             }
             
-            .time-calculator-container button {
+            #TimeCalculatorContainer button {
                 width: 100%; 
                 margin-top: 8px;
+                padding: 12px;
+            }
+            
+            #TimeCalculatorContainer .time-block {
+                padding: 12px;
+            }
+            
+            #TimeCalculatorContainer .time-calculator-options-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
         }
         `;
@@ -320,7 +324,7 @@
             block.innerHTML = `
                 <div class="time-block-header">
                     <div class="time-block-title">Time Period #${index + 1}</div>
-                    <button class="remove-time-block" onclick="removeTimeBlock(${index})">×</button>
+                    <button class="remove-time-block">×</button>
                 </div>
                 <section>
                     <h4>Start Time</h4>
@@ -334,10 +338,6 @@
                         <div class="time-calculator-row" id="timeBlockEndInputs${index}"></div>
                     </div>
                 </section>
-                <label style="margin-top: 10px; display: block;">
-                    <input type="checkbox" id="timeBlockIsBreak${index}" ${values.isBreak ? 'checked' : ''}>
-                    This is a break (don't count this time)
-                </label>
             `;
             
             // Create inputs
@@ -350,7 +350,7 @@
             return block;
         }
 
-        // Create time inputs (similar to your original function)
+        // Create time inputs
         function createTimeInputs(prefix, format, showSeconds, values = {}) {
             const hourInput = document.createElement("input");
             hourInput.type = "number";
@@ -405,17 +405,6 @@
             return {elements};
         }
 
-        // Remove a time block
-        function removeTimeBlock(index) {
-            const block = document.querySelector(`.time-block[data-index="${index}"]`);
-            if (block) block.remove();
-            // Reindex remaining blocks
-            document.querySelectorAll('.time-block').forEach((block, i) => {
-                block.dataset.index = i;
-                block.querySelector('.time-block-title').textContent = `Time Block #${i + 1}`;
-            });
-        }
-
         // Render all time blocks
         function renderTimeBlocks() {
             const format = formatSelect.value;
@@ -423,12 +412,11 @@
             
             // Save current values
             const blocks = [];
-            document.querySelectorAll('.time-block').forEach(block => {
+            document.querySelectorAll('#TimeCalculatorContainer .time-block').forEach(block => {
                 const index = block.dataset.index;
                 blocks.push({
                     start: getTime(`timeBlockStart${index}`),
-                    end: getTime(`timeBlockEnd${index}`),
-                    isBreak: document.getElementById(`timeBlockIsBreak${index}`).checked
+                    end: getTime(`timeBlockEnd${index}`)
                 });
             });
             
@@ -446,7 +434,7 @@
 
         // Add a new time block
         function addTimeBlock() {
-            const index = document.querySelectorAll('.time-block').length;
+            const index = document.querySelectorAll('#TimeCalculatorContainer .time-block').length;
             timeBlocksContainer.appendChild(createTimeBlock(index));
         }
 
@@ -511,10 +499,9 @@
             let hasError = false;
             
             // Validate all blocks
-            document.querySelectorAll('.time-block').forEach((block, i) => {
+            document.querySelectorAll('#TimeCalculatorContainer .time-block').forEach((block, i) => {
                 const start = getTime(`timeBlockStart${i}`);
                 const end = getTime(`timeBlockEnd${i}`);
-                const isBreak = document.getElementById(`timeBlockIsBreak${i}`).checked;
                 
                 const errStart = validateInputs(start, format);
                 const errEnd = validateInputs(end, format);
@@ -528,8 +515,7 @@
                 if (!hasError) {
                     blocks.push({
                         start: toSeconds(start, format),
-                        end: toSeconds(end, format),
-                        isBreak
+                        end: toSeconds(end, format)
                     });
                 }
             });
@@ -545,19 +531,13 @@
                 return;
             }
             
-            // Calculate total time (counting only non-break blocks)
+            // Calculate total time
             let totalSeconds = 0;
-            let breakSeconds = 0;
             
             blocks.forEach(block => {
                 let duration = block.end - block.start;
                 if (duration < 0) duration += 24 * 3600; // Handle overnight
-                
-                if (block.isBreak) {
-                    breakSeconds += duration;
-                } else {
-                    totalSeconds += duration;
-                }
+                totalSeconds += duration;
             });
             
             // Format results
@@ -565,11 +545,7 @@
             let mins = Math.floor((totalSeconds % 3600) / 60);
             let secs = totalSeconds % 60;
             
-            let breakHours = Math.floor(breakSeconds / 3600);
-            let breakMins = Math.floor((breakSeconds % 3600) / 60);
-            let breakSecs = breakSeconds % 60;
-            
-            let resultHTML = `<div style="font-weight:bold;margin-bottom:6px">Total Counted Time:</div>
+            let resultHTML = `<div style="font-weight:bold;margin-bottom:6px">Total Time:</div>
                 <span class="time-calculator-result-bold">${hours} hour${hours !== 1 ? "s" : ""}, ${mins} minute${mins !== 1 ? "s" : ""}`;
             
             if (includeSecondsCheckbox.checked) {
@@ -577,26 +553,14 @@
             }
             resultHTML += `</span>`;
             
-            if (breakSeconds > 0) {
-                resultHTML += `<div style="margin-top:12px;font-weight:bold">Break Time:</div>
-                    <span style="color:#666">${breakHours} hour${breakHours !== 1 ? "s" : ""}, ${breakMins} minute${breakMins !== 1 ? "s" : ""}`;
-                
-                if (includeSecondsCheckbox.checked) {
-                    resultHTML += `, ${breakSecs} second${breakSecs !== 1 ? "s" : ""}`;
-                }
-                resultHTML += `</span>`;
-            }
-            
             // Add details for each block
             resultHTML += `<div style="margin-top:15px;font-size:0.95em">`;
             blocks.forEach((block, i) => {
                 const start = getTime(`timeBlockStart${i}`);
                 const end = getTime(`timeBlockEnd${i}`);
-                const isBreak = block.isBreak;
                 
-                resultHTML += `<div style="margin-top:8px;${isBreak ? 'color:#666' : ''}">
-                    <b>Block ${i+1}:</b> ${formatDisplay(start, format)} to ${formatDisplay(end, format)}
-                    ${isBreak ? ' (break)' : ''}</div>`;
+                resultHTML += `<div style="margin-top:8px;">
+                    <b>Block ${i+1}:</b> ${formatDisplay(start, format)} to ${formatDisplay(end, format)}</div>`;
             });
             resultHTML += `</div>`;
             
@@ -625,12 +589,24 @@
             calcBtn.addEventListener("click", calculateTotal);
             resetBtn.addEventListener("click", reset);
             
+            // Handle remove time block via event delegation
+            timeBlocksContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-time-block')) {
+                    const block = e.target.closest('.time-block');
+                    if (block) {
+                        block.remove();
+                        // Reindex remaining blocks
+                        document.querySelectorAll('#TimeCalculatorContainer .time-block').forEach((block, i) => {
+                            block.dataset.index = i;
+                            block.querySelector('.time-block-title').textContent = `Time Period #${i + 1}`;
+                        });
+                    }
+                }
+            });
+            
             // Add first time block
             reset();
         }
-
-        // Make removeTimeBlock available globally
-        window.removeTimeBlock = removeTimeBlock;
 
         // Start the app
         init();
