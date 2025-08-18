@@ -18,7 +18,7 @@
                 <!-- Time blocks will be added here -->
             </div>
             
-            <button id="addTimeBlockBtn" class="time-calculator-secondary-btn" style="margin-top: 15px;">+ Add Another Time Block</button>
+            <button id="addTimeBlockBtn" class="time-calculator-tertiary-btn" style="margin-top: 15px;">+ Add Another Time Block</button>
             
             <div class="time-calculator-options-row">
                 <label>Time Format:
@@ -192,17 +192,26 @@
         }
 
         #TimeCalculatorContainer .time-calculator-secondary-btn {
-            background: #f0f0f0;
-            color: #333;
+             background: #dfcda7; 
+             color: #885b23; 
             border: 1px solid #ccc;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         #TimeCalculatorContainer .time-calculator-secondary-btn:hover {
+           background: #e8e0c5;
+            transform: translateY(-2px);
+        }
+        #TimeCalculatorContainer .time-calculator-tertiary-btn{
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        #TimeCalculatorContainer .time-calculator-tertiary-btn:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
         }
-
         #TimeCalculatorContainer .time-calculator-result-block {
             background: #fff;
             border-radius: 5px;
