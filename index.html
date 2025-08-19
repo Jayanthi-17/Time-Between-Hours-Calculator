@@ -18,8 +18,6 @@
                 <!-- Time blocks will be added here -->
             </div>
             
-            <button id="addTimeBlockBtn" class="time-calculator-tertiary-btn" style="margin-top: 15px;">+ Add Another Time Block</button>
-            
             <div class="time-calculator-options-row">
                 <label>Time Format:
                     <select id="timeCalculatorFormat">
@@ -31,6 +29,7 @@
             </div>
             
             <div class="time-calculator-button-row">
+                <button id="addTimeBlockBtn" class="time-calculator-tertiary-btn">+ Add Another Time Block</button>
                 <button id="timeCalculatorCalcBtn" class="time-calculator-primary-btn">Calculate Total</button>
                 <button id="timeCalculatorResetBtn" class="time-calculator-secondary-btn">Reset</button>
             </div>
@@ -94,8 +93,9 @@
             color: white;
             border: none;
             border-radius: 4px;
-            padding: 2px 8px;
+            padding: 2px 2px;
             cursor: pointer;
+        
         }
 
         #TimeCalculatorContainer .time-calculator-row {
@@ -162,12 +162,12 @@
         }
 
         #TimeCalculatorContainer .time-calculator-button-row {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start; /* Changed from 'center' to 'flex-start' */
-    margin-top: 20px;
-    flex-wrap: wrap;
-}
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
 
         #TimeCalculatorContainer button {
             padding: 9px 19px;
